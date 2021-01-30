@@ -44,16 +44,17 @@ We hypothesize that fluctuations of stock prices are strongly correlated with ke
 
 ### Deployment
 
-A flask app will be created with 3 routes
+A flask app will be created and hosted on Heroku. It will have 3 routes: 
+
 - Home 
 
 Loads sample graphs from the dataset showing comparisons of stock prices and important announcement dates 
 
-Contains dropdowns which the user can use to select stock tickers and dates
+Contains dropdowns which the user can use to select stock tickers and dates to update the graphs and view changes in stock price around the chosen date
 
 - Update 
 
-Opens the database, sorts data by user selection, updates the home page and redirects the user to the 
+Opens the database, sorts data by user selection, updates the home page and redirects the user to the home page
                                                  
                                                  
 - Api 

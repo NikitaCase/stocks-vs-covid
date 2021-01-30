@@ -24,11 +24,25 @@ We hypothesize that fluctuations of stock prices are strongly correlated with ke
 
 <b>What We Are Using:</b>
 
-<b>DataBase Services:</b>                  <b>Programming Languages:</b>                 <b>Cloud Services:</b>
-    * PostgreSQL                                 * Javascript                                 * Heroku                         
-    * ElephantSQL                                * Python 
-                                                 * HTML 
-                                                 * D3 and CSS
+<b>DataBase Services:</b>                                 
+    * PostgreSQL                                                                                  
+    * ElephantSQL                               
+                                                 
+                                                 
+                                                 
+ <b>Programming Languages:</b>      
+         * Javascript
+         * Python 
+         * HTML 
+         * D3 
+         * CSS
+  
+  <b>Cloud Services:</b>
+        * Heroku      
+                                                 
+                                                 
+                                                 
+                                                 
 
 <b>Our Sources of Data:</b>
 

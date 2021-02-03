@@ -32,7 +32,7 @@ We hypothesize that fluctuations of stock prices are strongly correlated with ke
 * ElephantSQL                               
                                                  
 ##### Languages      
-* Javascript (Plotly, D3)
+* Javascript (Plotly, D3, Bootstrap)
 * Python (Flask, Flask-SQLAlchemy) 
 * HTML5 
 * CSS

@@ -5,35 +5,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pet Pals!</title>
+    <title>Stock_VS_Covid</title>
+    <!-- Boostrap link-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <!--css style sheet link-->
+    <link rel="stylesheet" type="text/css" href="styles.css" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
     <div class="container">
         <div class="jumbotron" style="text-align: center">
-            <h1>Pet Pal</h1>
+            <h1>Stocks Vs. Covid</h1>
             <p>Find your pet a pal!</p>
         </div>
+        <!--Navigation drop down bar-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">List of Stocks</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav ml-auto" id="navi-item-select">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Plots
+                        </a>
+                        <!--Drop down bar-->
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href=max_temp.html>Entertainment</a>
+                            <a class="dropdown-item" href="humidty.html">Hospitality</a>
+                            <a class="dropdown-item" href="cloudiness.html">Aviation</a>
+                            <a class="dropdown-item" href="wind_speed.html">Technology</a>
+                            <a class="dropdown-item" href="wind_speed.html">Telecommunications</a>
+                        </div>
+                        <div class="wrapper">
+                            <nav class="navbar navbar-default">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <a class="navbar-brand" href="index.html">
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>
+        </nav>
+        <div class="hero text-center">
 
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Look at all of the current pet pals!</h2>
-                <div id="plot"></div>
-            </div>
         </div>
+        <div class="container">
+            <div class="row margin-top-50">
+                <div class="col-md-2">
+                    <aside class="filters">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Filter Events</div>
+                            <div class="panel-body">
+                                <form>
+                                    <div class="form-group">
+                                        <ul class="list-group" id="filters">
+                                            <li class="filter list-group-item">
+                                                <label for="date">Enter a Date</label>
+                                                <input class="form-control" id="datetime" type="text"
+                                                    placeholder="1/11/2011">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <button id="filter-btn" type="button" class="btn btn-default">Filter Table</button>
+                                </form>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <!-- <div class="row">>
+                            <div class="col-md-12">
+                                <h2>Look at all of the current pet pals!</h2>
+                                <div id="plot"></div>
+                            </div>
+                        </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <h2><a href="/send">Add your pet here!</a></h2>
-            </div>
-        </div>
-    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2><a href="/send">Add your pet here!</a></h2>
+                            </div>
+                        </div>-->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+                    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+                    crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                    crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                    crossorigin="anonymous"></script>
 
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 
 </html>

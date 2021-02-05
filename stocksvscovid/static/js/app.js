@@ -1,6 +1,7 @@
 
 function init() {
   //Html binding
+  console.log("YOU ARE IN IT");
   var selector = d3.select("#selDateset");
 
   // const url = `/api/${date}`
@@ -26,7 +27,7 @@ function init() {
 
 function optionChanged(newDate) {
   // Fetch new data each time a new sample is selected
-  console.log(newDate);
+  console.log("OPTION CHANGED");
   // buildMetadata(newDate);
   }
 

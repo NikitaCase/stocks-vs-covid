@@ -21,6 +21,9 @@ engine = create_engine('postgres://gvrxbsgl:OSgGmghNCc6_K8YCTvPaVp4jmm78ezbm@raj
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
+print(Base.classes.keys())
+
+
 #------------------------------------------------------------------------------
 # Flask Setup
 #------------------------------------------------------------------------------
@@ -39,7 +42,7 @@ def home():
 @app.route('/entertainment')
 def entertainment(): 
     
-    stocks = Base.classes.combined_table    
+    stocks = Base.classes.combined_table
     session = Session(engine)
 
     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='GC.TO').order_by(stocks.date).all()
@@ -67,24 +70,94 @@ def entertainment():
     
     return jsonify(entertainment_stocks)
 
-
-@app.route('/dates')
-def dates(): 
     
-    stocks = Base.classes.dates_table
-    session = Session(engine)
-
-    news = session.query(stocks.Date, stocks.News).all()
-  
-    date_dict ={
-        'Date': [row[0] for row in news],
-        'News': [row[1] for row in news]
-        }
- 
+    entertainment_stocks =[
+        {
+        'Ticker': 'GC.TO',
+        'Date': [row[2] for row in gc],
+        'Adj_Close': [row[1] for row in gc], 
+        }, 
+              {
+        'Ticker': 'RECP.TO',
+        'Date': [row[2] for row in recp],
+        'Adj_Close': [row[1] for row in recp], 
+        }, 
+              {
+        'Ticker': 'CGX.TO',
+        'Date': [row[2] for row in cgx],
+        'Adj_Close': [row[1] for row in cgx], 
+        } 
+    ]
     
-    return jsonify(date_dict)
+    return jsonify(entertainment_stocks)
+
+    
+    entertainment_stocks =[
+        {
+        'Ticker': 'GC.TO',
+        'Date': [row[2] for row in gc],
+        'Adj_Close': [row[1] for row in gc], 
+        }, 
+              {
+        'Ticker': 'RECP.TO',
+        'Date': [row[2] for row in recp],
+        'Adj_Close': [row[1] for row in recp], 
+        }, 
+              {
+        'Ticker': 'CGX.TO',
+        'Date': [row[2] for row in cgx],
+        'Adj_Close': [row[1] for row in cgx], 
+        } 
+    ]
+    
+    return jsonify(entertainment_stocks)
+
+    
+    entertainment_stocks =[
+        {
+        'Ticker': 'GC.TO',
+        'Date': [row[2] for row in gc],
+        'Adj_Close': [row[1] for row in gc], 
+        }, 
+              {
+        'Ticker': 'RECP.TO',
+        'Date': [row[2] for row in recp],
+        'Adj_Close': [row[1] for row in recp], 
+        }, 
+              {
+        'Ticker': 'CGX.TO',
+        'Date': [row[2] for row in cgx],
+        'Adj_Close': [row[1] for row in cgx], 
+        } 
+    ]
+    
+    return jsonify(entertainment_stocks)
+
+    
+    entertainment_stocks =[
+        {
+        'Ticker': 'GC.TO',
+        'Date': [row[2] for row in gc],
+        'Adj_Close': [row[1] for row in gc], 
+        }, 
+              {
+        'Ticker': 'RECP.TO',
+        'Date': [row[2] for row in recp],
+        'Adj_Close': [row[1] for row in recp], 
+        }, 
+              {
+        'Ticker': 'CGX.TO',
+        'Date': [row[2] for row in cgx],
+        'Adj_Close': [row[1] for row in cgx], 
+        } 
+    ]
+    
+    return jsonify(entertainment_stocks)
 
 
+#------------------------------------------------------------------------------
+# Debugging
+#------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     app.run()

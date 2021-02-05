@@ -21,9 +21,6 @@ engine = create_engine('postgres://gvrxbsgl:OSgGmghNCc6_K8YCTvPaVp4jmm78ezbm@raj
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
-print(Base.classes.keys())
-
-
 #------------------------------------------------------------------------------
 # Flask Setup
 #------------------------------------------------------------------------------
@@ -165,7 +162,7 @@ def dates():
     stocks = Base.classes.dates_table
     session = Session(engine)
 
-    news = session.query(stocks.Date, stocks.news).all()
+    news = session.query(stocks.Date, stocks.News).all()
   
     date_list =[
         {

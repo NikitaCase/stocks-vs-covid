@@ -6,10 +6,10 @@ function init() {
   // const url = `/api/${date}`
   //d3.json(url).then(function(data) => {
     // Populate the dropdown
-    d3.json("https://stocksvscovid.herokuapp.com/dates").then((data) =>  {
+    d3.json("/dates").then((data) =>  {
 
         console.log(data);
-        var Dates = data.date;
+        //var Dates = data.date;
         Dates.forEach((date) => {
             selector.append("option")
             .text(date)
@@ -20,13 +20,13 @@ function init() {
         // Use the first sample to init the charts
         const initialSample = Dates[0];
         build_Charts(initialSample);
-        buildMetadata(initialSample)
+        buildMetadata(initialSample);
     });
 };
 
 function optionChanged(newDate) {
   // Fetch new data each time a new sample is selected
-  console.log(newDate)
+  console.log(newDate);
   // buildMetadata(newDate);
   }
 

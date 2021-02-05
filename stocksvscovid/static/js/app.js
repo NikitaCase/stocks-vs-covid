@@ -11,17 +11,19 @@ function init() {
 
         console.log(data);
         var Dates = data.Date;
+
         Dates.forEach((date) => {
             selector.append("option")
             .text(date)
             .property("value",date);
         })
         console.log(Dates);
-
+        console.log("AFTER FOREACH");
         // Use the first sample to init the charts
         const initialSample = Dates[0];
-        build_Charts(initialSample);
-        buildMetadata(initialSample);
+        console.log(Dates[0]);
+        // build_Charts(initialSample);
+        // buildMetadata(initialSample);
     });
 };
 

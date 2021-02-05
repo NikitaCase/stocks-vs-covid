@@ -165,12 +165,12 @@ def dates():
     stocks = Base.classes.dates_table
     session = Session(engine)
 
-    dates = session.query(stocks.Date, stocks.news).all()
+    news = session.query(stocks.Date, stocks.news).all()
   
     date_list =[
         {
-        'Date': [row[0] for row in gc],
-        'News': [row[1] for row in gc]
+        'Date': [row[0] for row in news],
+        'News': [row[1] for row in news]
         }]
  
     

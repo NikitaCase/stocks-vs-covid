@@ -42,9 +42,9 @@ def entertainment():
     stocks = Base.classes.entertainment    
     session = Session(engine)
 
-    gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='GC.TO').order_by(stocks.date).all()
-    recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='RECP.TO').order_by(stocks.date).all()
-    cgx = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='CGX.TO').order_by(stocks.date).all()
+    gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='GC.TO').order_by(stocks.Date).all()
+    recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='RECP.TO').order_by(stocks.Date).all()
+    cgx = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='CGX.TO').order_by(stocks.Date).all()
 
 
     entertainment_stocks =[
@@ -64,7 +64,7 @@ def entertainment():
         'Adj_Close': [row[1] for row in cgx]
         } 
     ]
-    
+    session.close()
     return jsonify(entertainment_stocks)
 
 #------------------------------------------------------------------------------
@@ -74,8 +74,8 @@ def telecommunication():
     stocks = Base.classes.telecommunication
     session = Session(engine)
 
-    rci = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='RCI-B.TO').order_by(stocks.date).all()
-    bce = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='BCE.TO').order_by(stocks.date).all()
+    rci = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='RCI-B.TO').order_by(stocks.Date).all()
+    bce = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='BCE.TO').order_by(stocks.Date).all()
 
     telecommunication_stocks =[
         {
@@ -89,7 +89,7 @@ def telecommunication():
         'Adj_Close': [row[1] for row in bce]
         } 
     ]
-    
+    session.close()
     return jsonify(telecommunication_stocks)
 
 
@@ -107,7 +107,9 @@ def telecommunication():
 #         'News': [row[1] for row in news]
 #         }
  
-    
+#         
+#         
+#     session.close()        
 #     return jsonify(date_dict)
 
 #------------------------------------------------------------------------------
@@ -117,8 +119,8 @@ def technology():
     stocks = Base.classes.technology
     session = Session(engine)
 
-    nv = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='NVEI.TO').order_by(stocks.date).all()
-    shop = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='SHOP.TO').order_by(stocks.date).all()
+    nv = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='NVEI.TO').order_by(stocks.Date).all()
+    shop = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='SHOP.TO').order_by(stocks.Date).all()
 
     tech_stocks =[
         {
@@ -132,7 +134,7 @@ def technology():
         'Adj_Close': [row[1] for row in shop] 
         }
     ]
-    
+    session.close()
     return jsonify(tech_stocks)
 
 
@@ -144,8 +146,8 @@ def aviation():
     stocks = Base.classes.aviation
     session = Session(engine)
 
-    bbd = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='BBD-B.TO').order_by(stocks.date).all()
-    ac = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='AC.TO').order_by(stocks.date).all()
+    bbd = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='BBD-B.TO').order_by(stocks.Date).all()
+    ac = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='AC.TO').order_by(stocks.Date).all()
  
 
 
@@ -161,7 +163,7 @@ def aviation():
         'Adj_Close': [row[1] for row in ac]
         }
     ]
-    
+    session.close()
     return (aviation_stocks)   
 
 

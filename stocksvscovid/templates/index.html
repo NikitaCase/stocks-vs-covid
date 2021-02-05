@@ -66,9 +66,12 @@
                                     <div class="form-group">
                                         <ul class="list-group" id="filters">
                                             <li class="filter list-group-item">
+
+                                                <!-- Date Selection Section -->
                                                 <label for="date">Enter a Date</label>
-                                                <input class="form-control" id="datetime" type="text"
-                                                    placeholder="1/11/2011">
+                                                <select id="selDataset" onchange="optionChanged(this.value)"></select>
+                                               <!--  <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                                                -->
                                             </li>
                                         </ul>
                                     </div>

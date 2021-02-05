@@ -64,7 +64,8 @@ def entertainment():
         'Adj_Close': [row[1] for row in cgx], 
         } 
     ]
-    
+    session.close()
+
     return jsonify(entertainment_stocks)
 
 #------------------------------------------------------------------------------
@@ -89,7 +90,7 @@ def telecommunication():
         'Adj_Close': [row[1] for row in bce], 
         } 
     ]
-    
+    session.close()
     return jsonify(telecommunication_stocks)
 
 
@@ -107,7 +108,7 @@ def dates():
         'News': [row[1] for row in news]
         }
  
-    
+    session.close()
     return jsonify(date_dict)
 
 #------------------------------------------------------------------------------
@@ -132,7 +133,7 @@ def technology():
         'Adj_Close': [row[1] for row in recp], 
         }, 
     ]
-    
+    session.close()
     return jsonify(tech_stocks)
 
 
@@ -161,7 +162,7 @@ def aviation():
         'Adj_Close': [row[1] for row in ac], 
         }, 
     ]
-    
+    session.close()
     return (aviation_stocks)   
 
 

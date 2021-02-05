@@ -9,7 +9,7 @@ function init() {
     d3.json("/dates").then((data) =>  {
 
         console.log(data);
-        //var Dates = data.date;
+        var Dates = data.Date;
         Dates.forEach((date) => {
             selector.append("option")
             .text(date)

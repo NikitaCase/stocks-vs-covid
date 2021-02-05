@@ -42,7 +42,7 @@ def home():
 @app.route('/entertainment')
 def entertainment(): 
     
-    stocks = Base.classes.combined_table
+    stocks = Base.classes.entertainment    
     session = Session(engine)
 
     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='GC.TO').order_by(stocks.date).all()
@@ -69,6 +69,146 @@ def entertainment():
     ]
     
     return jsonify(entertainment_stocks)
+
+# #------------------------------------------------------------------------------
+# @app.route('/aviation')
+# def aviation(): 
+    
+#     stocks = Base.classes.aviation
+#     session = Session(engine)
+
+#     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='BBD-B.TO').order_by(stocks.date).all()
+#     recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='AC.TO').order_by(stocks.date).all()
+ 
+
+
+#     entertainment_stocks =[
+#         {
+#         'Ticker': 'BBD-B.TO',
+#         'Date': [row[2] for row in gc],
+#         'Adj_Close': [row[1] for row in gc], 
+#         }, 
+#               {
+#         'Ticker': 'RECP.TO',
+#         'Date': [row[2] for row in recp],
+#         'Adj_Close': [row[1] for row in recp], 
+#         }, 
+#     ]
+    
+#     return jsonify(entertainment_stocks)
+
+# #------------------------------------------------------------------------------
+# @app.route('/technology')
+# def technology(): 
+    
+#     stocks = Base.classes.technology
+#     session = Session(engine)
+
+#     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='NVEI.TO').order_by(stocks.date).all()
+#     recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='SHOP.TO').order_by(stocks.date).all()
+
+#     tech_stocks =[
+#         {
+#         'Ticker': 'GC.TO',
+#         'Date': [row[2] for row in gc],
+#         'Adj_Close': [row[1] for row in gc], 
+#         }, 
+#               {
+#         'Ticker': 'RECP.TO',
+#         'Date': [row[2] for row in recp],
+#         'Adj_Close': [row[1] for row in recp], 
+#         }, 
+#     ]
+    
+#     return jsonify(tech_stocks)
+
+
+# #------------------------------------------------------------------------------
+# @app.route('/entertainment')
+# def entertainment(): 
+    
+#     stocks = Base.classes.combined_table
+#     session = Session(engine)
+
+#     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='GC.TO').order_by(stocks.date).all()
+#     recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='RECP.TO').order_by(stocks.date).all()
+#     cgx = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='CGX.TO').order_by(stocks.date).all()
+
+# RCI-B.TO
+# BCE.TO
+
+#     entertainment_stocks =[
+#         {
+#         'Ticker': 'GC.TO',
+#         'Date': [row[2] for row in gc],
+#         'Adj_Close': [row[1] for row in gc], 
+#         }, 
+#               {
+#         'Ticker': 'RECP.TO',
+#         'Date': [row[2] for row in recp],
+#         'Adj_Close': [row[1] for row in recp], 
+#         }, 
+#               {
+#         'Ticker': 'CGX.TO',
+#         'Date': [row[2] for row in cgx],
+#         'Adj_Close': [row[1] for row in cgx], 
+#         } 
+#     ]
+    
+#     return jsonify(entertainment_stocks)
+
+
+#------------------------------------------------------------------------------
+@app.route('/dates')
+def dates(): 
+    
+    stocks = Base.classes.dates_table
+    session = Session(engine)
+
+    dates = session.query(stocks.Date, stocks.news).all()
+  
+    date_list =[
+        {
+        'Date': [row[0] for row in gc],
+        'News': [row[1] for row in gc]
+        }]
+ 
+    
+    return jsonify(date_list)
+
+
+#------------------------------------------------------------------------------
+# FOR HOSPITALITY
+# @app.route('/entertainment')
+# def (): 
+    
+#     stocks = Base.classes.combined_table
+#     session = Session(engine)
+
+#     gc = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='GC.TO').order_by(stocks.date).all()
+#     recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='RECP.TO').order_by(stocks.date).all()
+#     cgx = session.query(stocks.Ticker, stocks.Adj_Close, stocks.date).filter(stocks.Ticker =='CGX.TO').order_by(stocks.date).all()
+
+
+#     entertainment_stocks =[
+#         {
+#         'Ticker': 'GC.TO',
+#         'Date': [row[2] for row in gc],
+#         'Adj_Close': [row[1] for row in gc], 
+#         }, 
+#               {
+#         'Ticker': 'RECP.TO',
+#         'Date': [row[2] for row in recp],
+#         'Adj_Close': [row[1] for row in recp], 
+#         }, 
+#               {
+#         'Ticker': 'CGX.TO',
+#         'Date': [row[2] for row in cgx],
+#         'Adj_Close': [row[1] for row in cgx], 
+#         } 
+#     ]
+    
+#     return jsonify(entertainment_stocks)
 
 
 #------------------------------------------------------------------------------

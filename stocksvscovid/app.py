@@ -36,7 +36,7 @@ def home():
 
 # Backend Routes
 #------------------------------------------------------------------------------
-@app.route('/entertainment')
+""" @app.route('/entertainment')
 def entertainment(): 
     
     stocks = Base.classes.combined_table    
@@ -66,7 +66,7 @@ def entertainment():
     ]
     
     return jsonify(entertainment_stocks)
-
+ """
 
 @app.route('/dates')
 def dates(): 

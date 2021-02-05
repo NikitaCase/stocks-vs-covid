@@ -3,7 +3,6 @@ function init() {
   //Html binding
   var selector = d3.select("#selDateset");
 
-
   // const url = `/api/${date}`
   //d3.json(url).then(function(data) => {
     // Populate the dropdown
@@ -21,10 +20,9 @@ function init() {
     });
 };
 
-
 function optionChanged(newDate) {
   // Fetch new data each time a new sample is selected
-  // buildCharts(newDate);
+  console.log(newDate)
   // buildMetadata(newDate);
   }
 

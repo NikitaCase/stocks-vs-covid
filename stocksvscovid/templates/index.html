@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!--css style sheet link-->
-    <link rel="stylesheet" type="text/css" href="styles.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -68,8 +68,11 @@
                                             <li class="filter list-group-item">
 
                                                 <!-- Date Selection Section -->
-                                                <label for="date">Enter a Date</label>
-                                                <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        <div class="well">
+            <h5>Please Select a Date:</h5>
+            <select id="selDataset" onchange="optionChanged(this.value)"></select>
+        </div>
+                                                </select>
                                                <!--  <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
                                                 -->
                                             </li>

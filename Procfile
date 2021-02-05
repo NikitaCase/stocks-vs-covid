@@ -1,1 +1,1 @@
-web: gunicorn stockvscovid.app:app
+web: gunicorn stocksvscovid.app:app

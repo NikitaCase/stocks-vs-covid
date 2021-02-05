@@ -164,14 +164,13 @@ def dates():
 
     news = session.query(stocks.Date, stocks.News).all()
   
-    date_list =[
-        {
+    date_dict ={
         'Date': [row[0] for row in news],
         'News': [row[1] for row in news]
-        }]
+        }
  
     
-    return jsonify(date_list)
+    return jsonify(date_dict)
 
 
 #------------------------------------------------------------------------------

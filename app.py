@@ -46,7 +46,6 @@ def entertainment():
     recp = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='RECP.TO').order_by(stocks.Date).all()
     cgx = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='CGX.TO').order_by(stocks.Date).all()
 
-
     entertainment_stocks =[
         {
         'Ticker': 'GC.TO',
@@ -137,8 +136,6 @@ def technology():
     session.close()
     return jsonify(tech_stocks)
 
-
-
 #------------------------------------------------------------------------------
 @app.route('/aviation')
 def aviation(): 
@@ -149,8 +146,6 @@ def aviation():
     bbd = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='BBD-B.TO').order_by(stocks.Date).all()
     ac = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(stocks.Ticker =='AC.TO').order_by(stocks.Date).all()
  
-
-
     aviation_stocks =[
         {
         'Ticker': 'BBD-B.TO',
@@ -164,7 +159,7 @@ def aviation():
         }
     ]
     session.close()
-    return (aviation_stocks)   
+    return jsonify(aviation_stocks)   
 
 
 

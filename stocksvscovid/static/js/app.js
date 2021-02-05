@@ -6,10 +6,14 @@ function init() {
   // const url = `/api/${date}`
   //d3.json(url).then(function(data) => {
     // Populate the dropdown
-    d3.json("/dates").then((data) =>  {
+    d3.json("https://stocksvscovid.herokuapp.com/dates").then((data) =>  {
+
+        console.log(data);
         var Dates = data.date;
         Dates.forEach((date) => {
-            selector.append("option").text(date).property("value",date);
+            selector.append("option")
+            .text(date)
+            .property("value",date);
         })
         console.log(Dates);
 

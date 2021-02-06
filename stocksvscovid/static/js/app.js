@@ -1,6 +1,4 @@
-/* This function references the entertainment_stock operator in the app.py file. 
-*/
-function buildplot() {
+function buildplot_entertainment() {
   d3.json("/entertainment").then(function (data) {
     var ticker = data.entertainment_stocks[0].Ticker;
     var adj_Close = data.entertainment_stocks[0].Adj_Close;
@@ -10,11 +8,7 @@ function buildplot() {
     var date1 = data.entertainment_stocks[1].Date
     var ticker2 = data.entertainment_stocks[2].Ticker;
     var adj_Close2 = data.entertainment_stocks[2].Adj_Close;
-    var date2 = data.entertainment_stocks[2].Date
-
-    //     //console.log(ticker);
-    //     //console.log(adj_Close);
-    //     //console.log(date);
+    var date2 = data.entertainment_stocks[2].Date;
 
     var trace = {
       type: "scatter",
@@ -59,105 +53,100 @@ function buildplot() {
   });
 };
 
-<<<<<<< Updated upstream
-/* 20-Feb-06 | This is to test the telecommunications stock. */
+buildplot_entertainment()
 
-function buildplot() {
-  d3.json("/telecommunications").then(function (data) {
-    var ticker3 = data.telecommunications_stocks[0].Ticker;
-    var adj_Close3 = data.telecommunications_stocks[0].Adj_Close;
-    var date3 = data.telecommunications_stocks[0].Date
-    var ticker4 = data.telecommunications_stocks[1].Ticker;
-    var adj_Close4 = data.telecommunications_stocks[1].Adj_Close;
-    var date4 = data.telecommunications_stocks[1].Date
-    /* var ticker5 = data.telecommunications_stocks[2].Ticker;
-    var adj_Close5 = data.telecommunications_stocks[2].Adj_Close;
-    var date5 = data.telecommunications_stocks[2].Date */
-=======
-buildplot()
 
-function buildplot1() {
-  d3.json("/telecommunication").then(function (data1) {
-    var ticker3 = data1.telecommunication_stocks[0].Ticker;
-    var adj_Close3 = data1.telecommunication_stocks[0].Adj_Close;
-    var date3 = data1.telecommunication_stocks[0].Date
-    var ticker4 = data1.telecommunication_stocks[1].Ticker;
-    var adj_Close4 = data1.telecommunication_stocks[1].Adj_Close;
-    var date4 = data1.telecommunication_stocks[1].Date
->>>>>>> Stashed changes
+function buildplot_technology() {
+  d3.json("/technology").then(function (data2) {
+    var ticker5 = data2.telecommunication_stocks[0].Ticker;
+    var adj_Close5 = data2.telecommunication_stocks[0].Adj_Close;
+    var date5 = data2.telecommunication_stocks[0].Date
+    var ticker6 = data2.telecommunication_stocks[1].Ticker;
+    var adj_Close6 = data2.telecommunication_stocks[1].Adj_Close;
+    var date6 = data2.telecommunication_stocks[1].Date
 
-    //console.log(ticker);
-    //console.log(adj_Close);
-    //console.log(date);
-
-    var trace3 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker3,
-      x: date3,
-      y: adj_Close3,
-      line: {
-        color: "green"
-      }
-    };
-
-    var trace4 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker4,
-      x: date4,
-      y: adj_Close4,
-      line: {
-        color: "blue"
-      }
-    };
-<<<<<<< Updated upstream
-    
-    /*var trace5 = {
+    var trace5 = {
       type: "scatter",
       mode: "line",
       name: ticker5,
       x: date5,
       y: adj_Close5,
       line: {
+        color: "purple"
+      }
+    };
+
+    var trace6 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker6,
+      x: date6,
+      y: adj_Close6,
+      line: {
+        color: "pink"
+      }
+    };
+
+    var tracedata_technology = [trace5, trace6];
+
+    var layout = {
+      title: `Technology Stock`
+    }
+
+
+    Plotly.newPlot("plot2", tracedata_technology, layout)
+  });
+};
+
+buildplot_technology()
+
+/*
+function buildplot_aviation() {
+  d3.json("/aviation").then(function (data3) {
+    var ticker7 = data3.aviation_stocks[0].Ticker;
+    var adj_Close7 = data3.aviation_stocks[0].Adj_Close;
+    var date7 = data3.aviation_stocks[0].Date
+    var ticker8 = data3.aviation_stocks[1].Ticker;
+    var adj_Close8 = data3.aviation_stocks[1].Adj_Close;
+    var date8 = data3.aviation_stocks[1].Date
+
+    var trace7 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker7,
+      x: date7,
+      y: adj_Close7,
+      line: {
+        color: "brown"
+      }
+    };
+
+    var trace8 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker8,
+      x: date8,
+      y: adj_Close8,
+      line: {
         color: "black"
       }
-    }; */
+    };
 
-    var tracedata = [trace3, trace4, /* trace5 */];
+    var tracedata_aviation = [trace7, trace8];
 
     var layout = {
-      title: `Telecommunication Stock`
+      title: `Aviation Stock`
     }
 
 
-    Plotly.newPlot("plot", tracedata, layout)
+    Plotly.newPlot("plot3", tracedata_aviation, layout)
   });
 };
 
+buildplot_aviation()
 
+*/
 
-
-
-
-
-
-buildplot();
-=======
-
-    var tracedata1 = [trace3, trace4];
-
-    var layout = {
-      title: `tele`
-    }
-
-
-    Plotly.newPlot("plot1", tracedata1, layout)
-  });
-};
->>>>>>> Stashed changes
-
-buildplot1()
 // function init() {
 //   //Html binding
 //   console.log("YOU ARE IN IT");
@@ -198,7 +187,6 @@ buildplot1()
 /* function init() {
   // Grab a reference to the dropdown select element
   var selector = d3.select("#selDateset");
-
   const url = "/dates"
   // Use the list of sample names to populate the select options
   d3.json(url).then((sampleNames) => {
@@ -208,11 +196,9 @@ buildplot1()
         .text(sample)
         .property("value", sample);
     });
-
     // Use the first sample from the list to build the initial plots
     const firstSample = sampleNames[0];
     buildCharts(firstSample);
     buildMetadata(firstSample);
   });
 } */
-

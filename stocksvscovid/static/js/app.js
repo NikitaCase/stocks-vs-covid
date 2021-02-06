@@ -1,4 +1,4 @@
-d3.json("/entertainment").then(function (story) {
+d3.json("/dates").then(function (story) {
   console.log(story)
 });
 // function buildplot() {

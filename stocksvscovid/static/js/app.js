@@ -151,19 +151,24 @@ function init() {
 
   //Html binding
   var selector = d3.select("#selDateset");
+  var newsparagraph = d3.select("#blurb");
 
     // Populate the dropdown
     d3.json("/dates").then((data) =>  {
-
         var Dates = data.Story[0].Date
-
+        var News = data.Story[0].News
         Dates.forEach((date) => {
             selector.append("option")
             .text(date)
             .property("value",date);
         })
         
+        News.forEach((news) => {
+          newsparagraph.append("p")
+          .text(news)
+        })
     });
+
 };
 
 function optionChanged(newDate) {

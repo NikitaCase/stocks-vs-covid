@@ -12,9 +12,9 @@ function buildplot() {
     var adj_Close2 = data.entertainment_stocks[2].Adj_Close;
     var date2 = data.entertainment_stocks[2].Date
 
-    //console.log(ticker);
-    //console.log(adj_Close);
-    //console.log(date);
+    //     //console.log(ticker);
+    //     //console.log(adj_Close);
+    //     //console.log(date);
 
     var trace = {
       type: "scatter",
@@ -59,6 +59,7 @@ function buildplot() {
   });
 };
 
+<<<<<<< Updated upstream
 /* 20-Feb-06 | This is to test the telecommunications stock. */
 
 function buildplot() {
@@ -72,6 +73,18 @@ function buildplot() {
     /* var ticker5 = data.telecommunications_stocks[2].Ticker;
     var adj_Close5 = data.telecommunications_stocks[2].Adj_Close;
     var date5 = data.telecommunications_stocks[2].Date */
+=======
+buildplot()
+
+function buildplot1() {
+  d3.json("/telecommunication").then(function (data1) {
+    var ticker3 = data1.telecommunication_stocks[0].Ticker;
+    var adj_Close3 = data1.telecommunication_stocks[0].Adj_Close;
+    var date3 = data1.telecommunication_stocks[0].Date
+    var ticker4 = data1.telecommunication_stocks[1].Ticker;
+    var adj_Close4 = data1.telecommunication_stocks[1].Adj_Close;
+    var date4 = data1.telecommunication_stocks[1].Date
+>>>>>>> Stashed changes
 
     //console.log(ticker);
     //console.log(adj_Close);
@@ -98,6 +111,7 @@ function buildplot() {
         color: "blue"
       }
     };
+<<<<<<< Updated upstream
     
     /*var trace5 = {
       type: "scatter",
@@ -129,7 +143,21 @@ function buildplot() {
 
 
 buildplot();
+=======
 
+    var tracedata1 = [trace3, trace4];
+
+    var layout = {
+      title: `tele`
+    }
+
+
+    Plotly.newPlot("plot1", tracedata1, layout)
+  });
+};
+>>>>>>> Stashed changes
+
+buildplot1()
 // function init() {
 //   //Html binding
 //   console.log("YOU ARE IN IT");

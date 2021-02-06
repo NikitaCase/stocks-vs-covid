@@ -93,7 +93,12 @@ def telecommunication():
             'Date': [row[2] for row in bce],
             'Adj_Close': [row[1] for row in bce]
         }
+<<<<<<< Updated upstream
     ]}
+=======
+    ]
+    }
+>>>>>>> Stashed changes
     session.close()
     return jsonify(telecommunication_stocks)
 
@@ -107,7 +112,7 @@ def telecommunication():
 
 #     news = session.query(stocks.Date, stocks.News).all()
 
-#     date_dict ={
+#     date_dict = {
 #         'Date': [row[0] for row in news],
 #         'News': [row[1] for row in news]
 #         }

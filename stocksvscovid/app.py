@@ -82,7 +82,7 @@ def telecommunication():
     bce = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
         stocks.Ticker == 'BCE.TO').order_by(stocks.Date).all()
 
-    telecommunication_stocks = [
+    telecommunication_stocks = {"telecommunication_stocks": [
         {
             'Ticker': 'RCI-B.TO',
             'Date': [row[2] for row in rci],
@@ -93,7 +93,7 @@ def telecommunication():
             'Date': [row[2] for row in bce],
             'Adj_Close': [row[1] for row in bce]
         }
-    ]
+    ]}
     session.close()
     return jsonify(telecommunication_stocks)
 

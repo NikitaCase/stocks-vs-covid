@@ -6,7 +6,8 @@ body {
 }
 
 h1 {
-    color: #fffaba;
+    color: #ffffff;
+    /* color: #fffaba; */
 }
 
 h3 {
@@ -42,4 +43,14 @@ select {
 .drop-down {
     border-radius: 1rem;
     margin: 10px;
+}
+
+p {
+    color: #ffffff;
+    font-size: 16;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.spacer {
+    height: 20px;
 }

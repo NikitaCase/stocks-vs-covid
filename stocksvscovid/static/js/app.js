@@ -1,10 +1,32 @@
-d3.json("/entertainment").then(function (data) {
-  console.log(data)
-})
 
-d3.json("/telecommunication").then(function (data) {
-  console.log(data)
-})
+function buildplot() {
+  d3.json("/entertainment").then(function (data) {
+    var ticker = data.entertainment_stocks[0].Ticker;
+    var adj_Close = data.entertainment_stocks[0].Adj_Close;
+    var date = data.entertainment_stocks[0].Date
+
+    //console.log(ticker);
+    //console.log(adj_Close);
+    //console.log(date);
+
+    var trace = {
+      x: date,
+      y: adj_Close,
+      type: "scatter",
+      mode: "line",
+      name: ticker
+    };
+
+    var data = [trace];
+
+    var layout = {
+      title: `Entertainment Stock`
+    };
+    Plotly.newplot("plot", data, layout)
+  })
+}
+
+buildplot()
 
 // function init() {
 //   //Html binding

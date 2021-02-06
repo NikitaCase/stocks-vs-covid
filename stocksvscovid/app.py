@@ -127,7 +127,7 @@ def technology():
     shop = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
         stocks.Ticker == 'SHOP.TO').order_by(stocks.Date).all()
 
-    tech_stocks = [
+    tech_stocks = {"technology": [
         {
             'Ticker': 'NVEI.TO',
             'Date': [row[2] for row in nv],
@@ -138,7 +138,7 @@ def technology():
             'Date': [row[2] for row in shop],
             'Adj_Close': [row[1] for row in shop]
         }
-    ]
+    ]}
     session.close()
     return jsonify(tech_stocks)
 

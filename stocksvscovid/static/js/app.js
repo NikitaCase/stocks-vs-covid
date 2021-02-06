@@ -100,7 +100,7 @@ function buildplot_technology() {
 
 buildplot_technology()
 
-/*
+
 function buildplot_aviation() {
   d3.json("/aviation").then(function (data3) {
     var ticker7 = data3.aviation_stocks[0].Ticker;
@@ -144,8 +144,6 @@ function buildplot_aviation() {
 };
 
 buildplot_aviation()
-
-*/
 
 // function init() {
 //   //Html binding

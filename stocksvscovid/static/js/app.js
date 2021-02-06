@@ -5,28 +5,34 @@ function buildplot() {
     var adj_Close = data.entertainment_stocks[0].Adj_Close;
     var date = data.entertainment_stocks[0].Date
 
+
     //console.log(ticker);
     //console.log(adj_Close);
     //console.log(date);
 
     var trace = {
-      x: date,
-      y: adj_Close,
       type: "scatter",
       mode: "line",
-      name: ticker
+      name: ticker,
+      x: date,
+      y: adj_Close,
+      line: {
+        color: "red"
+      }
     };
 
     var data = [trace];
 
     var layout = {
       title: `Entertainment Stock`
-    };
-    Plotly.newplot("plot", data, layout)
-  })
-}
+    }
 
-buildplot()
+
+    Plotly.newPlot("plot", data, layout)
+  });
+};
+
+buildplot();
 
 // function init() {
 //   //Html binding

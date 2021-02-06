@@ -1,0 +1,45 @@
+body {
+    min-height: 100vh;
+    background-color: #08183e;
+    background: linear-gradient(to left top, #08183e, #00516c);
+    align-items: center;
+}
+
+h1 {
+    color: #fffaba;
+}
+
+h3 {
+    color: #f7a332;
+}
+
+h5 {
+    color: #f7a332;
+}
+
+a:link {
+    color: #00e5c8;
+}
+
+a:visited {
+    color: #00e5c8;
+}
+
+a:hover {
+    color: #fe66b5;
+}
+
+.container {
+    border-radius: 1rem;
+}
+
+.drop-down,
+select {
+    background-color: #395b75;
+    color: #ffffff;
+}
+
+.drop-down {
+    border-radius: 1rem;
+    margin: 10px;
+}

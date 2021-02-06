@@ -15,7 +15,7 @@ from sqlalchemy import create_engine
 # ------------------------------------------------------------------------------
 engine = create_engine(
     'postgres://enwwbrxgztksrt:1c2aad3ab81e0cf9607b24d641b4f4be8a34a9841e3cac37739b4ba14569b605@ec2-3-214-3-162.compute-1.amazonaws.com:5432/dfidnj18uan5ha', echo=False)
-#cxn = engine.connect()
+# cxn = engine.connect()
 
 # Reflect Database into ORM classes
 # ------------------------------------------------------------------------------
@@ -99,23 +99,21 @@ def telecommunication():
 
 
 # --------------------------------------------------------------------------------
-# @app.route('/dates')
-# def dates():
+@app.route('/dates')
+def dates():
 
-#     stocks = Base.classes.dates_table
-#     session = Session(engine)
+    stocks = Base.classes.dates_table
+    session = Session(engine)
 
-#     news = session.query(stocks.Date, stocks.News).all()
+    news = session.query(stocks.Date, stocks.News).all()
 
-#     date_dict = {
-#         'Date': [row[0] for row in news],
-#         'News': [row[1] for row in news]
-#         }
+    date_dict = {"Story": [{
+        'Date': [row[0] for row in news],
+        'News': [row[1] for row in news]
+    }]}
 
-#
-#
-#     session.close()
-#     return jsonify(date_dict)
+    session.close()
+    return jsonify(date_dict)
 
 # ------------------------------------------------------------------------------
 @app.route('/technology')

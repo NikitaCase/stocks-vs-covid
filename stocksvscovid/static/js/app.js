@@ -1,40 +1,47 @@
+d3.json("/entertainment").then(function (data) {
+  console.log(data)
+})
 
-function init() {
-  //Html binding
-  console.log("YOU ARE IN IT");
-  var selector = d3.select("#selDateset");
+d3.json("/telecommunication").then(function (data) {
+  console.log(data)
+})
 
-  // const url = `/api/${date}`
-  //d3.json(url).then(function(data) => {
-    // Populate the dropdown
-    d3.json("/dates").then((data) =>  {
+// function init() {
+//   //Html binding
+//   console.log("YOU ARE IN IT");
+//   var selector = d3.select("#selDateset");
 
-        console.log(data);
-        var Dates = data.Date;
+//   // const url = `/api/${date}`
+//   //d3.json(url).then(function(data) => {
+//     // Populate the dropdown
+//     d3.json("/dates").then((data) =>  {
 
-        Dates.forEach((date) => {
-            selector.append("option")
-            .text(date)
-            .property("value",date);
-        })
-        console.log(Dates);
-        console.log("AFTER FOREACH");
-        // Use the first sample to init the charts
-        const initialSample = Dates[0];
-        console.log(Dates[0]);
-        // build_Charts(initialSample);
-        // buildMetadata(initialSample);
-    });
-};
+//         console.log(data);
+//         var Dates = data.Date;
 
-function optionChanged(newDate) {
-  // Fetch new data each time a new sample is selected
-  console.log("OPTION CHANGED");
-  // buildMetadata(newDate);
-  }
+//         Dates.forEach((date) => {
+//             selector.append("option")
+//             .text(date)
+//             .property("value",date);
+//         })
+//         console.log(Dates);
+//         console.log("AFTER FOREACH");
+//         // Use the first sample to init the charts
+//         const initialSample = Dates[0];
+//         console.log(Dates[0]);
+//         // build_Charts(initialSample);
+//         // buildMetadata(initialSample);
+//     });
+// };
 
-// Initialize the dashboard
-init();
+// function optionChanged(newDate) {
+//   // Fetch new data each time a new sample is selected
+//   console.log("OPTION CHANGED");
+//   // buildMetadata(newDate);
+//   }
+
+// // Initialize the dashboard
+// init();
 
 /* function init() {
   // Grab a reference to the dropdown select element

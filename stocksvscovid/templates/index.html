@@ -68,12 +68,13 @@
                                             <li class="filter list-group-item">
 
                                                 <!-- Date Selection Section -->
-        <div class="well">
-            <h5>Please Select a Date:</h5>
-            <select id="selDateset" onchange="optionChanged(this.value)">ASD</select>
-        </div>
-                                                
-                                               <!--  <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                                                <div class="well">
+                                                    <h5>Please Select a Date:</h5>
+                                                    <select id="selDateset"
+                                                        onchange="optionChanged(this.value)">ASD</select>
+                                                </div>
+
+                                                <!--  <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
                                                 -->
                                             </li>
                                         </ul>
@@ -111,6 +112,8 @@
 
                 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
                 <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+
 </body>
 
 </html>

@@ -157,7 +157,7 @@ def aviation():
     ac = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
         stocks.Ticker == 'AC.TO').order_by(stocks.Date).all()
 
-    aviation_stocks = [
+    aviation_stocks = {"aviation_stocks": [
         {
             'Ticker': 'BBD-B.TO',
             'Date': [row[2] for row in bbd],
@@ -168,9 +168,16 @@ def aviation():
             'Date': [row[2] for row in ac],
             'Adj_Close': [row[1] for row in ac]
         }
-    ]
+    ]}
     session.close()
-    return (aviation_stocks)
+    return jsonify(aviation_stocks)
+
+# ------------------------------------------------------------------------------
+@app.route('/exit')
+def exit():
+
+    session.close()
+    return (exit)
 
 
 if __name__ == "__main__":

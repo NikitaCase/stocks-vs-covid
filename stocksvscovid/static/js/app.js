@@ -17,7 +17,7 @@ function buildplot_entertainment() {
             x: date,
             y: adj_Close,
             line: {
-                color: "red"
+                color: '00d775'
             }
         };
 
@@ -28,7 +28,7 @@ function buildplot_entertainment() {
             x: date1,
             y: adj_Close1,
             line: {
-                color: "yellow"
+                color: "0077df"
             }
         };
         var trace2 = {
@@ -38,14 +38,16 @@ function buildplot_entertainment() {
             x: date2,
             y: adj_Close2,
             line: {
-                color: "orange"
+                color: "7f6dcc"
             }
         };
 
         var tracedata = [trace, trace1, trace2];
 
         var layout = {
-            title: `Entertainment Stock`
+            title: `Entertainment Stock`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50'
         }
 
 

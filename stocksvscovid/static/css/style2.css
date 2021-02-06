@@ -54,3 +54,7 @@ p {
 .spacer {
     height: 20px;
 }
+
+#plot {
+    background-color: #002e50;
+}

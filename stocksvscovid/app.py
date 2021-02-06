@@ -93,12 +93,8 @@ def telecommunication():
             'Date': [row[2] for row in bce],
             'Adj_Close': [row[1] for row in bce]
         }
-<<<<<<< Updated upstream
-    ]}
-=======
     ]
     }
->>>>>>> Stashed changes
     session.close()
     return jsonify(telecommunication_stocks)
 

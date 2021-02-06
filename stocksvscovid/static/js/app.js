@@ -7,6 +7,9 @@ function buildplot() {
     var ticker1 = data.entertainment_stocks[1].Ticker;
     var adj_Close1 = data.entertainment_stocks[1].Adj_Close;
     var date1 = data.entertainment_stocks[1].Date
+    var ticker2 = data.entertainment_stocks[2].Ticker;
+    var adj_Close2 = data.entertainment_stocks[2].Adj_Close;
+    var date2 = data.entertainment_stocks[2].Date
 
     //console.log(ticker);
     //console.log(adj_Close);
@@ -33,8 +36,18 @@ function buildplot() {
         color: "yellow"
       }
     };
+    var trace2 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker2,
+      x: date2,
+      y: adj_Close2,
+      line: {
+        color: "orange"
+      }
+    };
 
-    var tracedata = [trace, trace1];
+    var tracedata = [trace, trace1, trace2];
 
     var layout = {
       title: `Entertainment Stock`

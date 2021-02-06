@@ -1,4 +1,5 @@
-
+/* This function references the entertainment_stock operator in the app.py file. 
+*/
 function buildplot() {
   d3.json("/entertainment").then(function (data) {
     var ticker = data.entertainment_stocks[0].Ticker;
@@ -57,6 +58,75 @@ function buildplot() {
     Plotly.newPlot("plot", tracedata, layout)
   });
 };
+
+/* 20-Feb-06 | This is to test the telecommunications stock. */
+
+function buildplot() {
+  d3.json("/telecommunications").then(function (data) {
+    var ticker3 = data.telecommunications_stocks[0].Ticker;
+    var adj_Close3 = data.telecommunications_stocks[0].Adj_Close;
+    var date3 = data.telecommunications_stocks[0].Date
+    var ticker4 = data.telecommunications_stocks[1].Ticker;
+    var adj_Close4 = data.telecommunications_stocks[1].Adj_Close;
+    var date4 = data.telecommunications_stocks[1].Date
+    /* var ticker5 = data.telecommunications_stocks[2].Ticker;
+    var adj_Close5 = data.telecommunications_stocks[2].Adj_Close;
+    var date5 = data.telecommunications_stocks[2].Date */
+
+    //console.log(ticker);
+    //console.log(adj_Close);
+    //console.log(date);
+
+    var trace3 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker3,
+      x: date3,
+      y: adj_Close3,
+      line: {
+        color: "green"
+      }
+    };
+
+    var trace4 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker4,
+      x: date4,
+      y: adj_Close4,
+      line: {
+        color: "blue"
+      }
+    };
+    
+    /*var trace5 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker5,
+      x: date5,
+      y: adj_Close5,
+      line: {
+        color: "black"
+      }
+    }; */
+
+    var tracedata = [trace3, trace4, /* trace5 */];
+
+    var layout = {
+      title: `Telecommunication Stock`
+    }
+
+
+    Plotly.newPlot("plot", tracedata, layout)
+  });
+};
+
+
+
+
+
+
+
 
 buildplot();
 

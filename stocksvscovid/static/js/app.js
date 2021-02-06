@@ -4,7 +4,9 @@ function buildplot() {
     var ticker = data.entertainment_stocks[0].Ticker;
     var adj_Close = data.entertainment_stocks[0].Adj_Close;
     var date = data.entertainment_stocks[0].Date
-
+    var ticker1 = data.entertainment_stocks[1].Ticker;
+    var adj_Close1 = data.entertainment_stocks[1].Adj_Close;
+    var date1 = data.entertainment_stocks[1].Date
 
     //console.log(ticker);
     //console.log(adj_Close);
@@ -21,14 +23,25 @@ function buildplot() {
       }
     };
 
-    var data = [trace];
+    var trace1 = {
+      type: "scatter",
+      mode: "line",
+      name: ticker1,
+      x: date1,
+      y: adj_Close1,
+      line: {
+        color: "yellow"
+      }
+    };
+
+    var tracedata = [trace, trace1];
 
     var layout = {
       title: `Entertainment Stock`
     }
 
 
-    Plotly.newPlot("plot", data, layout)
+    Plotly.newPlot("plot", tracedata, layout)
   });
 };
 

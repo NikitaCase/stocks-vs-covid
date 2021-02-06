@@ -100,53 +100,50 @@ buildplot_entertainment()
 
 // buildplot_technology()
 
-/*
+
 function buildplot_aviation() {
-  d3.json("/aviation").then(function (data3) {
-    var ticker7 = data3.aviation_stocks[0].Ticker;
-    var adj_Close7 = data3.aviation_stocks[0].Adj_Close;
-    var date7 = data3.aviation_stocks[0].Date
-    var ticker8 = data3.aviation_stocks[1].Ticker;
-    var adj_Close8 = data3.aviation_stocks[1].Adj_Close;
-    var date8 = data3.aviation_stocks[1].Date
+    d3.json("/aviation").then(function(data3) {
+        var ticker7 = data3.aviation_stocks[0].Ticker;
+        var adj_Close7 = data3.aviation_stocks[0].Adj_Close;
+        var date7 = data3.aviation_stocks[0].Date
+        var ticker8 = data3.aviation_stocks[1].Ticker;
+        var adj_Close8 = data3.aviation_stocks[1].Adj_Close;
+        var date8 = data3.aviation_stocks[1].Date
 
-    var trace7 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker7,
-      x: date7,
-      y: adj_Close7,
-      line: {
-        color: "brown"
-      }
-    };
+        var trace7 = {
+            type: "scatter",
+            mode: "line",
+            name: ticker7,
+            x: date7,
+            y: adj_Close7,
+            line: {
+                color: "brown"
+            }
+        };
 
-    var trace8 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker8,
-      x: date8,
-      y: adj_Close8,
-      line: {
-        color: "black"
-      }
-    };
+        var trace8 = {
+            type: "scatter",
+            mode: "line",
+            name: ticker8,
+            x: date8,
+            y: adj_Close8,
+            line: {
+                color: "black"
+            }
+        };
 
-    var tracedata_aviation = [trace7, trace8];
+        var tracedata_aviation = [trace7, trace8];
 
-    var layout = {
-      title: `Aviation Stock`
-    }
+        var layout = {
+            title: `Aviation Stock`
+        }
 
 
-    Plotly.newPlot("plot3", tracedata_aviation, layout)
-  });
+        Plotly.newPlot("plot3", tracedata_aviation, layout)
+    });
 };
 
 buildplot_aviation()
-
-*/
-
 
 
 function init() {

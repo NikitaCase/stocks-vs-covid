@@ -171,11 +171,6 @@ def aviation():
     return jsonify(aviation_stocks)
 
 # ------------------------------------------------------------------------------
-@app.route('/exit')
-def exit():
-
-    session.close()
-    return (exit)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-
+// Create a Line plot with Ploty using data from app.py
 function buildplot_entertainment() {
   d3.json("/entertainment").then(function (data) {
     var ticker = data.entertainment_stocks[0].Ticker;
@@ -59,6 +59,7 @@ function buildplot_entertainment() {
 
 buildplot_entertainment()
 
+// Create a Line plot with Ploty using data from app.py
 function buildplot_technology() {
   d3.json("/technology").then(function (data1) {
     var ticker3 = data1.technology[0].Ticker;
@@ -106,6 +107,7 @@ function buildplot_technology() {
 
 buildplot_technology();
 
+// Create a Line plot with Ploty using data from app.py
 function buildplot_technology() {
   d3.json("/technology").then(function (data1) {
     var ticker3 = data1.technology[0].Ticker;
@@ -153,6 +155,7 @@ function buildplot_technology() {
 
 buildplot_technology();
 
+// Create a Line plot with Ploty using data from app.py
 function buildplot_aviation() {
   d3.json("/aviation").then(function (data2) {
     var ticker5 = data2.aviation_stocks[0].Ticker;
@@ -200,6 +203,7 @@ function buildplot_aviation() {
 
 buildplot_aviation();
 
+// Create a Line plot with Ploty using data from app.py
 function buildplot_telecommunication() {
   d3.json("/telecommunication").then(function (data3) {
     var ticker7 = data3.telecommunication_stocks[0].Ticker;

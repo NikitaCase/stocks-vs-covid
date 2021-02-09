@@ -272,9 +272,7 @@ function init() {
                 .property("value", date);
         })
 
-
-
-        // News.forEach((news) => {
+       // News.forEach((news) => {
         //     newsparagraph.append("p")
         //         .text(news)
         // })
@@ -335,7 +333,7 @@ var category = d3.select("#selTable")
 // Listener for category change
 category.on("change", function() {
     var user_category = category.property("value")
-    var url = `"/${user_category}"`
+    // var url = `"/${user_category}"`
     if (user_category === "aviation") { buildplot_aviation() } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
 
     build_bars(user_category)

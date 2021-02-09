@@ -108,54 +108,6 @@ function buildplot_technology() {
 buildplot_technology();
 
 // Create a Line plot with Ploty using data from app.py
-function buildplot_technology() {
-  d3.json("/technology").then(function (data1) {
-    var ticker3 = data1.technology[0].Ticker;
-    var adj_Close3 = data1.technology[0].Adj_Close;
-    var date3 = data1.technology[0].Date
-    var ticker4 = data1.technology[1].Ticker;
-    var adj_Close4 = data1.technology[1].Adj_Close;
-    var date4 = data1.technology[1].Date
-
-    var trace3 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker3,
-      x: date3,
-      y: adj_Close3,
-      line: {
-        color: '00d775'
-      }
-    };
-
-    var trace4 = {
-      type: "scatter",
-      mode: "line",
-      name: ticker4,
-      x: date4,
-      y: adj_Close4,
-      line: {
-        color: "0077df"
-      }
-    };
-
-    var tracedata_technology = [trace3, trace4];
-
-    var layout = {
-      title: `Technology Stock`,
-      paper_bgcolor: '002e50',
-      plot_bgcolor: '002e50',
-      yaxis: {
-        title: 'Stock Price (in CAD $)'
-      }
-    };
-    Plotly.newPlot("plot", tracedata_technology, layout)
-  });
-};
-
-buildplot_technology();
-
-// Create a Line plot with Ploty using data from app.py
 function buildplot_aviation() {
   d3.json("/aviation").then(function (data2) {
     var ticker5 = data2.aviation_stocks[0].Ticker;
@@ -319,3 +271,7 @@ function plot_data() {
 
 // listenener for date change
 selector.on("change", plot_data)
+
+
+var selector1 = d3.select("#selTable");
+

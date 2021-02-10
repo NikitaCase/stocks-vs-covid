@@ -16,8 +16,6 @@ today = dt.utcnow().date()
 today = dt.utcnow().date().strftime('%Y-%m-%d')
 
 # Create dataframe from single stock ticker
-
-
 def Get_Stock(ticker):
     df = pdr.DataReader(ticker, data_source='yahoo',
                         start='2019-01-01', end=today)
@@ -34,13 +32,17 @@ def Get_Stock(ticker):
 
 def Update_Database(df_name, table_name):
     engine = create_engine(
-        'postgres://enwwbrxgztksrt:1c2aad3ab81e0cf9607b24d641b4f4be8a34a9841e3cac37739b4ba14569b605@ec2-3-214-3-162.compute-1.amazonaws.com:5432/dfidnj18uan5ha', echo=False)
+        'postgres://xlijioqnhlxwoc:0a00b7a48002425a8b83c6e5bd8f95473b8ef96759ae3eeae3d3515cd22da78c@ec2-3-215-118-246.compute-1.amazonaws.com:5432/d7nea22a1dpr79', echo=False)
     session = Session(engine)
     Base = automap_base()
     Base.prepare(engine, reflect=True)
     cxn = engine.connect()
     df_name.to_sql(name=table_name, con=engine, if_exists='append', index=True)
     print(table_name + ' added')
+
+    # Close connections
+    cxn.close()
+    session.close()
 
 
 #### Create stock dataframes
@@ -76,6 +78,3 @@ from scrapeNews import scrape_News
 
 Update_Database(scrape_News(), 'dates_table')
 
-# Close connections
-cxn.close()
-session.close()

@@ -271,6 +271,17 @@ function plot_data() {
         news.append("p")
             .text(blurb)
     })
+    
+    var userDate = new Date(user_date)
+    console.log(userDate)
+
+    var beginning = new Date(user_date)
+    var ending = new Date(userDate)
+    beginning.setUTCHours(1080)
+    ending.setUTCHours(userDate.getHours()-1080)
+    console.log(beginning)
+    console.log(ending)
+
 };
 
 
@@ -280,23 +291,57 @@ selector.on("change", plot_data)
 
 var selector1 = d3.select("#selTable");
 
-function plot_data() {
+// function plot_data() {
 
 
-    var user_date = selector.node().value
+//     var user_date = selector.node().value
 
-    headline.html("")
+//     headline.html("")
 
-    headline.append("h3")
-        .text(`Headline for ${user_date}`)
+//     headline.append("h3").text(`Headline for ${user_date}`)
 
-    news.html("")
+//     news.html("")
 
-    json.parse(stockPlots).then((data) => {
-        var EntertainmentOption = data.stockPlots.Entertainment
-        var AviationOption = dates.stockPlots.Aviation
+//     console.log(user_date);
+//     // var split = user_date.split(" ")
+//     // console.log(split)
+//     // var year = split[3]
+//     // var month = split[2]
+//     // var day = split[1]
+//     // var dateString = month +" "+day+" "+year+" 00:00:00 GMT"
 
-        news.append("p")
-            .text(blurb)
-    })
-};
+//     // var userDate = new Date(dateString)
+//     var userDate = new Date(user_date)
+//     console.log(userDate)
+
+//     var beginning = new Date(user_date)
+//     var ending = new Date(userDate)
+//     beginning.setUTCHours(1080)
+//     ending.setUTCHours(userDate.getHours()-1080)
+//     console.log(beginning)
+//     console.log(ending)
+
+
+//     // var newDate = new Date(Date.parse(user_date))
+//     // console.log(newDate)
+//     // console.log("BREAK;")
+    
+
+//     // var isoD = newDate.toISOString()
+//     // console.log(isoD);
+
+//     // console.log(newDate.getUTCFullYear())
+
+
+//     //var startD = new Date(user_date.setDate(10))
+//     //console.log(startD);
+//     //
+//     // json.parse(stockPlots).then((data) => {
+//     //     var EntertainmentOption = data.stockPlots.Entertainment
+//     //     var AviationOption = dates.stockPlots.Aviation
+
+//     //     news.append("p")
+//     //         .text(blurb)
+//     // })
+// };
+

@@ -224,26 +224,16 @@ function init() {
                 .text(date)
                 .property("value", date);
         })
-
-
-
-        // News.forEach((news) => {
-        //     newsparagraph.append("p")
-        //         .text(news)
-        // })
     });
-
 };
 
 function optionChanged(newDate) {
     // Fetch new data each time a new sample is selected
     console.log("OPTION CHANGED");
-    // buildMetadata(newDate);
 }
 
-// // Initialize the dashboard
+//Initialize the dashboard
 init();
-
 
 // Selecting page areas
 var selector = d3.select("#selDateset");
@@ -252,7 +242,6 @@ var news = d3.select("#news-text")
 
 // Changes new area based on user selection
 function plot_data() {
-
 
     var user_date = selector.node().value
 
@@ -272,9 +261,11 @@ function plot_data() {
             .text(blurb)
     })
     
+    // Generate new dates for plot
     var userDate = new Date(user_date)
     console.log(userDate)
 
+    // Beginning and ending range
     var beginning = new Date(user_date)
     var ending = new Date(userDate)
     beginning.setUTCHours(1080)

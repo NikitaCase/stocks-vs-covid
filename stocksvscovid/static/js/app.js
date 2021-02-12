@@ -4,6 +4,7 @@ var plot_area = d3.select("#plot")
 function buildplot_entertainment() {
     plot_area.html("")
     d3.json("/entertainment").then(function(data) {
+        console.log(data)
         var ticker = data.entertainment_stocks[0].Ticker;
         var adj_Close = data.entertainment_stocks[0].Adj_Close;
         var date = data.entertainment_stocks[0].Date

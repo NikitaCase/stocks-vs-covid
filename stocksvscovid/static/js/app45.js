@@ -1,13 +1,13 @@
 // Create a Line plot with Ploty using data from app.py
-var plot_area = d3.select("#plot")
 
 // Selecting page areas
+var plot_area = d3.select("#plot")
 var selector = d3.select("#selDateset");
 var headline = d3.select("#news-headline")
 var news = d3.select("#news-text")
 var bar_area = d3.select("#bar-graph")
 var category = d3.select("#selTable")
-
+var user_date = selector.node().value
 
 // Populates drop down menu with dates from global news page
 function init() {
@@ -20,18 +20,13 @@ function init() {
                 .property("value", date);
         })
     });
+
 };
 
-
+// updates headline and news story sections when date selected
 function optionChanged() {
-    console.log('option changed')
 
-}
-
-
-// Changes new area based on user selection
-function display_news() {
-    var user_date = selector.node().value
+    let user_date = selector.node().value
 
     headline.html("")
     headline.append("h3")
@@ -46,27 +41,8 @@ function display_news() {
             .text(blurb)
     })
 
-    // var dtdt = new Date(user_date)
-    // var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
-    // var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
-
-    // buildplot(user_date, start_date, end_date)
-    //     // d3.json(`/filterDate/${user_date}`).then((data) => {
-    //     // });
-    // dates = [start_date,end_date]
-    // return dates
-
-
-};
-
-
-
-// function dates(user_category) {
-//     bar_area.html()
-//     var url = `"/${user_category}"`
-//     var user_date = selector.node().value
-//     user_date = new Date(user_date)
-//     console.log(user_date)
+    changeCategory()
+}
 
 // function which hopefuly returns array of dates 
 function arrayToDates(arr) {
@@ -79,95 +55,7 @@ function arrayToDates(arr) {
     return date_list
 }
 
-
-function buildplot(user_date, start_date, end_date) {
-    // console.log(start_date)
-    d3.json("/entertainment").then((data) => {
-
-
-        var sett = data.entertainment_stocks[0]
-        var dates = arrayToDates(sett.Date)
-        var date_range = dates.filter(dt => (dt >= start_date) && (dt <= end_date))
-
-        var start_index = dates.indexOf(date_range[0])
-        var end_index = dates.indexOf(date_range[date_range.length - 1])
-
-
-        var start_price = sett.Adj_Close[start_index]
-        var end_price = sett.Adj_Close[end_index]
-
-        var prices = []
-
-
-        for (var x = start_index; x < end_index; x++) {
-            prices.push(sett.Adj_Close[x])
-        }
-        console.log(prices)
-
-
-    })
-}
-
-function buildplot_entertainment() {
-    plot_area.html("")
-    d3.json("/entertainment").then(function(data) {
-        var ticker = data.entertainment_stocks[0].Ticker;
-        var adj_Close = data.entertainment_stocks[0].Adj_Close;
-        var date = data.entertainment_stocks[0].Date
-        var ticker1 = data.entertainment_stocks[1].Ticker;
-        var adj_Close1 = data.entertainment_stocks[1].Adj_Close;
-        var date1 = data.entertainment_stocks[1].Date
-        var ticker2 = data.entertainment_stocks[2].Ticker;
-        var adj_Close2 = data.entertainment_stocks[2].Adj_Close;
-        var date2 = data.entertainment_stocks[2].Date;
-
-        var trace = {
-            type: "scatter",
-            mode: "line",
-            name: ticker,
-            x: date,
-            y: adj_Close,
-            line: {
-                color: '00d775'
-            }
-        };
-
-        var trace1 = {
-            type: "scatter",
-            mode: "line",
-            name: ticker1,
-            x: date1,
-            y: adj_Close1,
-            line: {
-                color: "0077df"
-            }
-        };
-        var trace2 = {
-            type: "scatter",
-            mode: "line",
-            name: ticker2,
-            x: date2,
-            y: adj_Close2,
-            line: {
-                color: "7f6dcc"
-            }
-        };
-
-        var tracedata = [trace, trace1, trace2];
-
-        var layout = {
-            title: `Entertainment Stock`,
-            paper_bgcolor: '002e50',
-            plot_bgcolor: '002e50',
-            yaxis: {
-                title: 'Stock Price (in CAD $)'
-            }
-        };
-        Plotly.newPlot("plot", tracedata, layout)
-    });
-};
-
-
+// Creates Traces
 function get_traces(ticker, date, adj_Close) {
     var trace = {
         type: "scatter",
@@ -182,81 +70,170 @@ function get_traces(ticker, date, adj_Close) {
     return trace;
 }
 
-function get_layout(title) {
-    var layout = {
-        title: title,
-        paper_bgcolor: '002e50',
-        plot_bgcolor: '002e50',
-        yaxis: {
-            title: 'Stock Price (in CAD $)'
-        }
-    };
 
-    return layout
-}
-
-// Create a Line plot with Ploty using data from app.py
-function buildplot_technology() {
-    plot_area.html("")
+// builds entertainment plot 
+function buildplot_entertainment() {
     var user_date = selector.node().value
-
-    d3.json("/technology").then(function(data1) {
-
-
-        var date_range_nvei, price_range_nvei = getDateRange(data1.technology[0], user_date)
-        var date_range_shop, price_range_shop = getDateRange(data1.technology[1], user_date)
-        console.log(user_date)
-        console.log(date_range_nvei)
-        console.log(date_range_shop)
-        console.log(price_range_shop)
-        console.log(price_range_nvei)
-
-
-        // var dates = getDateRange()
-        //var start_date = dates[0]
-        //var end_date = dates[1]
-
-        // var ticker3 = data1.technology[0].Ticker;
-        // //var adj_Close3 = data1.technology[0].Adj_Close;
-
-        // // var date3 = getDateRange()
-        // var ticker4 = data1.technology[1].Ticker;
-        // //var adj_Close4 = data1.technology[1].Adj_Close;
-
-
-        // var trace3 = get_traces(ticker3, date_range_nvei, price_range_nvei);
-        // var trace4 = get_traces(ticker4, date_range_shop, price_range_shop);
-
-        // var tracedata_technology = [trace3, trace4];
-
-        // var layout = get_layout("Technology Stock")
-
-        // Plotly.newPlot("plot", tracedata_technology, layout)
-    });
-};
-
-function getDateRange(arr, user_date) {
-
     var dtdt = new Date(user_date)
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
 
 
-    var dates = arrayToDates(arr.Date)
-    var date_range = dates.filter(dt => (dt >= start_date) && (dt <= end_date))
+    plot_area.html("")
+    d3.json("/entertainment").then(function(data) {
 
-    var start_index = dates.indexOf(date_range[0])
-    var end_index = dates.indexOf(date_range[date_range.length - 1])
+        // GC variables
+        var gc = data.entertainment_stocks[0]
+        var dates_gc = arrayToDates(gc.Date)
+        var date_range_gc = dates_gc.filter(dt => (dt >= start_date) && (dt <= end_date))
 
-    var price_range = []
+        var start_index = dates_gc.indexOf(date_range_gc[0])
+        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
 
-    for (var x = start_index; x < end_index; x++) {
-        price_range.push(arr.Adj_Close[x])
-    }
-    return date_range, price_range
-}
+        var prices_gc = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_gc.push(gc.Adj_Close[x])
+        }
 
-// // Create a Line plot with Ploty using data from app.py
+        // recp variables
+        var recp = data.entertainment_stocks[1]
+        var dates_recp = arrayToDates(recp.Date)
+        var date_range_recp = dates_recp.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var prices_recp = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_recp.push(recp.Adj_Close[x])
+        }
+
+
+        // cgx variables
+        var cgx = data.entertainment_stocks[2]
+        var dates_cgx = arrayToDates(cgx.Date)
+        var date_range_cgx = dates_cgx.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        console.log(date_range_cgx)
+
+        var prices_cgx = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_cgx.push(cgx.Adj_Close[x])
+        }
+
+
+        var trace_1 = {
+            type: "scatter",
+            mode: "line",
+            name: gc.Ticker,
+            x: date_range_gc,
+            y: prices_gc,
+            line: {
+                color: '00d775'
+            }
+        };
+
+        var trace_2 = {
+            type: "scatter",
+            mode: "line",
+            name: recp.Ticker,
+            x: date_range_recp,
+            y: prices_recp,
+            line: {
+                color: "0077df"
+            }
+        };
+        var trace_3 = {
+            type: "scatter",
+            mode: "line",
+            name: cgx.Ticker,
+            x: date_range_cgx,
+            y: prices_cgx,
+            line: {
+                color: "7f6dcc"
+            }
+        };
+
+        var tracedata = [trace_1, trace_2, trace_3];
+
+        var layout = {
+            title: `Entertainment Stock`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Stock Price (in CAD $)'
+            }
+        };
+        Plotly.newPlot("plot", tracedata, layout)
+    });
+};
+
+
+// Create a Line plot with Ploty using data from app.py
+function buildplot_technology() {
+    var user_date = selector.node().value
+    var dtdt = new Date(user_date)
+    var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
+    var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+
+    plot_area.html("")
+    var user_date = selector.node().value
+
+    d3.json("/technology").then(function(data) {
+
+
+        // GC variables
+        var gc = data.technology[0]
+        var dates_gc = arrayToDates(gc.Date)
+        var date_range_gc = dates_gc.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var start_index = dates_gc.indexOf(date_range_gc[0])
+        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+
+        var prices_gc = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_gc.push(gc.Adj_Close[x])
+        }
+
+        // recp variables
+        var recp = data.technology[1]
+        var dates_recp = arrayToDates(recp.Date)
+        var date_range_recp = dates_recp.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var prices_recp = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_recp.push(recp.Adj_Close[x])
+        }
+
+        var trace_1 = {
+            type: "scatter",
+            mode: "line",
+            name: gc.Ticker,
+            x: date_range_gc,
+            y: prices_gc,
+            line: {
+                color: '00d775'
+            }
+        };
+
+        var trace_2 = {
+            type: "scatter",
+            mode: "line",
+            name: recp.Ticker,
+            x: date_range_recp,
+            y: prices_recp,
+            line: {
+                color: "0077df"
+            }
+        };
+
+        var tracedata = [trace_1, trace_2];
+
+        var layout = get_layout("Technology Stock")
+
+        Plotly.newPlot("plot", tracedata, layout)
+    });
+};
+
+
+// Create a Line plot with Ploty using data from app.py
 // function buildplot_technology() {
 //     plot_area.html("")
 //     d3.json("/technology").then(function(data1) {
@@ -304,100 +281,122 @@ function getDateRange(arr, user_date) {
 // };
 
 // Create a Line plot with Ploty using data from app.py
-function buildplot_aviation() {
-    plot_area.html("")
-    var user_date = selector.node().value
+// function buildplot_aviation() {
+//     plot_area.html("")
+//     var user_date = selector.node().value
 
-    d3.json("/aviation").then(function(data2) {
-
-
-
-        var date_range_ac, price_range_ac = getDateRange(data2.aviation_stocks[0], user_date)
-        var date_range_bbd, price_range_bbd = getDateRange(data2.aviation_stocks[1], user_date)
-        console.log(date_range_ac)
-        console.log(date_range_bbd)
-        console.log(price_range_ac)
-        console.log(price_range_bbd)
+//     d3.json("/aviation").then(function(data2) {
 
 
-        // var ticker5 = data2.aviation_stocks[0].Ticker;
-        // var adj_Close5 = data2.aviation_stocks[0].Adj_Close;
-        // var date5 = data2.aviation_stocks[0].Date
-        // var ticker6 = data2.aviation_stocks[1].Ticker;
-        // var adj_Close6 = data2.aviation_stocks[1].Adj_Close;
-        // var date6 = data2.aviation_stocks[1].Date
 
-        // var trace5 = {
-        //     type: "scatter",
-        //     mode: "line",
-        //     name: ticker5,
-        //     x: date5,
-        //     y: adj_Close5,
-        //     line: {
-        //         color: '00d775'
-        //     }
-        // };
+//         var date_range_ac, price_range_ac = getDateRange(data2.aviation_stocks[0], user_date)
+//         var date_range_bbd, price_range_bbd = getDateRange(data2.aviation_stocks[1], user_date)
+//         console.log(date_range_ac)
+//         console.log(date_range_bbd)
+//         console.log(price_range_ac)
+//         console.log(price_range_bbd)
 
-        // var trace6 = {
-        //     type: "scatter",
-        //     mode: "line",
-        //     name: ticker6,
-        //     x: date6,
-        //     y: adj_Close6,
-        //     line: {
-        //         color: "0077df"
-        //     }
-        // };
 
-        // var tracedata_aviation = [trace5, trace6];
+//         // var ticker5 = data2.aviation_stocks[0].Ticker;
+//         // var adj_Close5 = data2.aviation_stocks[0].Adj_Close;
+//         // var date5 = data2.aviation_stocks[0].Date
+//         // var ticker6 = data2.aviation_stocks[1].Ticker;
+//         // var adj_Close6 = data2.aviation_stocks[1].Adj_Close;
+//         // var date6 = data2.aviation_stocks[1].Date
 
-        // var layout = {
-        //     title: `Aviation Stock`,
-        //     paper_bgcolor: '002e50',
-        //     plot_bgcolor: '002e50',
-        //     yaxis: {
-        //         title: 'Stock Price (in CAD $)'
-        //     }
-        // };
-        // Plotly.newPlot("plot", tracedata_aviation, layout)
-    });
-};
+//         // var trace5 = {
+//         //     type: "scatter",
+//         //     mode: "line",
+//         //     name: ticker5,
+//         //     x: date5,
+//         //     y: adj_Close5,
+//         //     line: {
+//         //         color: '00d775'
+//         //     }
+//         // };
+
+//         // var trace6 = {
+//         //     type: "scatter",
+//         //     mode: "line",
+//         //     name: ticker6,
+//         //     x: date6,
+//         //     y: adj_Close6,
+//         //     line: {
+//         //         color: "0077df"
+//         //     }
+//         // };
+
+//         // var tracedata_aviation = [trace5, trace6];
+
+//         // var layout = {
+//         //     title: `Aviation Stock`,
+//         //     paper_bgcolor: '002e50',
+//         //     plot_bgcolor: '002e50',
+//         //     yaxis: {
+//         //         title: 'Stock Price (in CAD $)'
+//         //     }
+//         // };
+//         // Plotly.newPlot("plot", tracedata_aviation, layout)
+//     });
+// };
 
 
 // Create a Line plot with Ploty using data from app.py
 function buildplot_telecommunication() {
-    plot_area.html("")
-    d3.json("/telecommunication").then(function(data3) {
-        var ticker7 = data3.telecommunication_stocks[0].Ticker;
-        var adj_Close7 = data3.telecommunication_stocks[0].Adj_Close;
-        var date7 = data3.telecommunication_stocks[0].Date
-        var ticker8 = data3.telecommunication_stocks[1].Ticker;
-        var adj_Close8 = data3.telecommunication_stocks[1].Adj_Close;
-        var date8 = data3.telecommunication_stocks[1].Date
+    var user_date = selector.node().value
+    var dtdt = new Date(user_date)
+    var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
+    var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
 
-        var trace7 = {
+    plot_area.html("")
+    d3.json("/telecommunication").then(function(data) {
+
+        // GC variables
+        var gc = data.telecommunication_stocks[0]
+        var dates_gc = arrayToDates(gc.Date)
+        var date_range_gc = dates_gc.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var start_index = dates_gc.indexOf(date_range_gc[0])
+        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+
+        var prices_gc = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_gc.push(gc.Adj_Close[x])
+        }
+
+        // recp variables
+        var recp = data.telecommunication_stocks[1]
+        var dates_recp = arrayToDates(recp.Date)
+        var date_range_recp = dates_recp.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var prices_recp = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_recp.push(recp.Adj_Close[x])
+        }
+
+        var trace_1 = {
             type: "scatter",
             mode: "line",
-            name: ticker7,
-            x: date7,
-            y: adj_Close7,
+            name: gc.Ticker,
+            x: date_range_gc,
+            y: prices_gc,
             line: {
                 color: '00d775'
             }
         };
 
-        var trace8 = {
+        var trace_2 = {
             type: "scatter",
             mode: "line",
-            name: ticker8,
-            x: date8,
-            y: adj_Close8,
+            name: recp.Ticker,
+            x: date_range_recp,
+            y: prices_recp,
             line: {
                 color: "0077df"
             }
         };
 
-        var tracedata_telecommuication = [trace7, trace8];
+        var tracedata = [trace_1, trace_2];
 
         var layout = {
             title: `Telecommunication Stock`,
@@ -407,9 +406,95 @@ function buildplot_telecommunication() {
                 title: 'Stock Price (in CAD $)'
             }
         };
-        Plotly.newPlot("plot", tracedata_telecommuication, layout)
+        Plotly.newPlot("plot", tracedata, layout)
     });
 };
+
+
+// Create a Line plot with Ploty using data from app.py
+function buildplot_aviation() {
+
+    var user_date = selector.node().value
+    var dtdt = new Date(user_date)
+    var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
+    var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+
+    plot_area.html("")
+    d3.json("/aviation").then(function(data) {
+
+        // GC variables
+        var gc = data.aviation_stocks[0]
+        var dates_gc = arrayToDates(gc.Date)
+        var date_range_gc = dates_gc.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var start_index = dates_gc.indexOf(date_range_gc[0])
+        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+
+        var prices_gc = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_gc.push(gc.Adj_Close[x])
+        }
+
+        // recp variables
+        var recp = data.aviation_stocks[1]
+        var dates_recp = arrayToDates(recp.Date)
+        var date_range_recp = dates_recp.filter(dt => (dt >= start_date) && (dt <= end_date))
+
+        var prices_recp = []
+        for (var x = start_index; x < end_index; x++) {
+            prices_recp.push(recp.Adj_Close[x])
+        }
+
+        var trace_1 = {
+            type: "scatter",
+            mode: "line",
+            name: gc.Ticker,
+            x: date_range_gc,
+            y: prices_gc,
+            line: {
+                color: '00d775'
+            }
+        };
+
+        var trace_2 = {
+            type: "scatter",
+            mode: "line",
+            name: recp.Ticker,
+            x: date_range_recp,
+            y: prices_recp,
+            line: {
+                color: "0077df"
+            }
+        };
+
+        var tracedata = [trace_1, trace_2];
+
+
+        var layout = {
+            title: `Aviation Stock`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Stock Price (in CAD $)'
+            }
+        };
+        Plotly.newPlot("plot", tracedata, layout)
+    });
+};
+
+// creates layout portion of plotly graph 
+function get_layout(title) {
+    var layout = {
+        title: title,
+        paper_bgcolor: '002e50',
+        plot_bgcolor: '002e50',
+        yaxis: {
+            title: 'Stock Price (in CAD $)'
+        }
+    };
+
+    return layout
+}
 
 
 // Load initial functions
@@ -420,11 +505,11 @@ buildplot_aviation();
 
 // Load ticker selection section
 load_Tickers();
-// listenener for date change
-selector.on("change", display_news)
 
 // Listener for category change
-category.on("change", function() {
+category.on("change", changeCategory)
+
+function changeCategory() {
     var user_category = category.property("value")
     var url = `"/${user_category}"`
     if (user_category === "aviation") {
@@ -434,7 +519,7 @@ category.on("change", function() {
                 console.log(dates)
             })
     } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
-})
+}
 
 
 var tickerSelector = d3.select("#selTicker");
@@ -471,3 +556,13 @@ function get_stock_data() {
 }
 
 tickerSelector.on("change", get_stock_data)
+
+
+// creates date range
+function dateRange(user_date) {
+    var dtdt = new Date(user_date)
+    var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
+    var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+
+    return start_date, end_date
+}

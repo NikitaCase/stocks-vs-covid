@@ -281,6 +281,26 @@ selector.on("change", plot_data)
 
 
 var selector1 = d3.select("#selTable");
+var tickerSelector = d3.select("#selTicker");
+
+function load_Tickers() {
+    // tickerlist = [{name:"Enbridge",
+    //             symbol:"ENB.TO"},
+    //             {name:"Canadian Tire",
+    //             symbol:"CTC-A.TO",}]\
+    tickerlist = ["ENB.TO","CTC-A.TO","FTS.TO","BNS.TO"]
+    tickerSelector = d3.select("#selTicker");
+    tickerlist.forEach(d => {
+        tickerSelector.append("option").text(d).property("value",d)
+    })
+
+}
+
+function get_stock_data() {
+
+}
+
+tickerSelector.on("change",get_stock_data)
 
 // function plot_data() {
 

@@ -33,6 +33,8 @@
                 </form>
 
             </div>
+
+        <!-- Stock Categories Section-->
             <div class="col-md-3 drop-down">
 
                 <form>
@@ -50,6 +52,26 @@
             </div>
 
         </div>
+
+        <!-- Top Affected Stocks Section-->
+                    <div class="col-md-3 drop-down">
+                        <form action="/" method='GET'>
+                            <div class="well"><br>
+                                <label for="selTicker">
+                                    <h5>Top Affected Stocks </h5>
+                                </label><br>
+                                <select id="selTicker" name="ticker_table">
+                                    <option value="ENB.TO">Enbridge</option>
+                                    <option value="CTC-A.TO">Canadian Tire</option>
+                                    <option value="BNS.TO">Bank of Scotia</option>
+                                    <option value="FTS.TO">Fortis</option>
+                                </select>
+                            </div><br>
+                            <button name='scrape' type='submit'>Plot this Ticker</button>
+                        </form>
+                    </div>
+
+
         <div class="row">
             <div class="col-md-12" id="plot-header">
                 <p>header area for plot id="plot-header"</p>

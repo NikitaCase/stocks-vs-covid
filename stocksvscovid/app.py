@@ -3,12 +3,12 @@
 
 import os
 from flask import Flask, render_template, jsonify
-
+import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-
+from scrapeStocks import Get_Stock
 
 # ------------------------------------------------------------------------------
 # Create an engine for the database
@@ -172,6 +172,15 @@ def aviation():
 
 # ------------------------------------------------------------------------------
 
+### Murat Working on this
+# @app.route('/ticker/api/<symbol>')
+# def ticker_api():
+#     tickerData
+#     scraped = json.loads(Get_Stock(symbol).to_json(orient="records"))
+
+#     for data in scraped.find():
+#         tickerData.append(item)
+#     return jsonify(scraped)
 
 if __name__ == "__main__":
     app.run()

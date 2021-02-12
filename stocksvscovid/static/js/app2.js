@@ -220,11 +220,13 @@ function init() {
         var Dates = data.Story[0].Date
         var News = data.Story[0].News
         Dates.forEach((date) => {
+            var date = date.slice(0, -13)
             selector.append("option")
                 .text(date)
                 .property("value", date);
         })
     });
+    load_Tickers();
 };
 
 function optionChanged(newDate) {
@@ -281,6 +283,31 @@ selector.on("change", plot_data)
 
 
 var selector1 = d3.select("#selTable");
+var tickerSelector = d3.select("#selTicker");
+
+function load_Tickers() {
+    tickerlist = [{name:"Enbridge",
+                symbol:"ENB.TO"},
+                {name:"Canadian Tire",
+                symbol:"CTC-A.TO"},
+                 {name:"Bank of Scotia",
+                 symbol:"BNS.TO"},
+                 {name:"Fortis",
+                symbol:"FTS.TO"}]
+    //tickerlist = ["ENB.TO","CTC-A.TO","FTS.TO","BNS.TO"]
+    tickerSelector = d3.select("#selTicker");
+    tickerlist.forEach(d => {
+        console.log(d)
+        tickerSelector.append("option").text(d.name).property("value",d.symbol)
+    })
+
+}
+
+function get_stock_data() {
+
+}
+
+tickerSelector.on("change",get_stock_data)
 
 // function plot_data() {
 

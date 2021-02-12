@@ -18,7 +18,7 @@
         <!-- Header  -->
         <div class="row">
             <div class="col-md-12" id="header">
-                <h1>Header</h1>
+                <h1>Stocks vs Covid</h1>
             </div>
         </div>
         <br>
@@ -27,17 +27,19 @@
             <div class="col-md-3 drop-down">
                 <form>
                     <div class="well"><br>
-                        <label for="selDateset"><h5>Please select a Date: </h5></label><br>
+                        <label for="selDateset"><h5>Available Dates: </h5></label><br>
                         <select id="selDateset" onchange="optionChanged(this.value)"></select>
                     </div><br>
                 </form>
 
             </div>
+
+        <!-- Stock Categories Section-->
             <div class="col-md-3 drop-down">
 
                 <form>
                     <div class="well"><br>
-                        <label for="selTable"><h5>Stock Categories </h5></label><br>
+                        <label for="selTable"><h5>Stock Categories: </h5></label><br>
                         <select id="selTable" name="stock_tables">
                                 <option value="aviation">Aviation</option>
                                 <option value="entertainment">Entertainment</option>
@@ -50,6 +52,22 @@
             </div>
 
         </div>
+
+        <!-- Top Affected Stocks Section-->
+                    <div class="col-md-3 drop-down">
+                        <form action="/" method='GET'>
+                            <div class="well"><br>
+                                <label for="selTicker">
+                                    <h5>Top Affected Stocks </h5>
+                                </label><br>
+                                <select id="selTicker" name="ticker_table">
+                                </select>
+                            </div><br>
+                            <button name='scrape' type='submit'>Plot this Ticker</button>
+                        </form>
+                    </div>
+
+
         <div class="row">
             <div class="col-md-12" id="plot-header">
                 <p>header area for plot id="plot-header"</p>

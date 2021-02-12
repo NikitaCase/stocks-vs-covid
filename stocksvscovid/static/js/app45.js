@@ -53,7 +53,8 @@ function display_news() {
     buildplot(user_date, start_date, end_date)
         // d3.json(`/filterDate/${user_date}`).then((data) => {
         // });
-
+    dates = [start_date,end_date]
+    return dates
 };
 
 
@@ -103,8 +104,6 @@ function buildplot(user_date, start_date, end_date) {
 
 
     })
-
-
 }
 
 function buildplot_entertainment() {
@@ -166,49 +165,56 @@ function buildplot_entertainment() {
     });
 };
 
-// Create a Line plot with Ploty using data from app.py
-function buildplot_technology() {
-    plot_area.html("")
-    d3.json("/technology").then(function(data1) {
-        var ticker3 = data1.technology[0].Ticker;
-        var adj_Close3 = data1.technology[0].Adj_Close;
-        var date3 = data1.technology[0].Date
-        var ticker4 = data1.technology[1].Ticker;
-        var adj_Close4 = data1.technology[1].Adj_Close;
-        var date4 = data1.technology[1].Date
 
-        var trace3 = {
+function get_traces(ticker,date,adj_Close) {
+            var trace = {
             type: "scatter",
             mode: "line",
-            name: ticker3,
-            x: date3,
-            y: adj_Close3,
-            line: {
-                color: '00d775'
-            }
-        };
-
-        var trace4 = {
-            type: "scatter",
-            mode: "line",
-            name: ticker4,
-            x: date4,
-            y: adj_Close4,
+            name: ticker,
+            x: date,
+            y: adj_Close,
             line: {
                 color: "0077df"
             }
         };
+    return trace;
+}
 
-        var tracedata_technology = [trace3, trace4];
-
-        var layout = {
-            title: `Technology Stock`,
+function get_layout(title){
+    var layout = {
+            title: title,
             paper_bgcolor: '002e50',
             plot_bgcolor: '002e50',
             yaxis: {
                 title: 'Stock Price (in CAD $)'
             }
         };
+}
+// Create a Line plot with Ploty using data from app.py
+function buildplot_technology() {
+    plot_area.html("")
+    d3.json("/technology").then(function(data1) {
+
+        var dates = getDateRange()
+        var start_date = dates[0]
+        var end_date = dates[1]
+
+        var ticker3 = data1.technology[0].Ticker;
+        var adj_Close3 = data1.technology[0].Adj_Close;
+
+        var date3 = getDateRange()
+        var ticker4 = data1.technology[1].Ticker;
+        var adj_Close4 = data1.technology[1].Adj_Close;
+        
+        var date4 = getDateRange()
+
+        var trace3 = get_traces(ticker3,date3,adj_Close3);
+        var trace4 = get_traces(ticker4,date4,adj_Close4);
+
+        var tracedata_technology = [trace3, trace4];
+
+        var layout = get_layout("Technology Stock")
+        
         Plotly.newPlot("plot", tracedata_technology, layout)
     });
 };
@@ -362,6 +368,8 @@ init();
 // plot initial graph
 buildplot_aviation();
 
+// Load ticker selection section
+load_Tickers();
 // listenener for date change
 selector.on("change", display_news)
 
@@ -377,3 +385,30 @@ category.on("change", function() {
             })
     } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
 })
+
+
+var tickerSelector = d3.select("#selTicker");
+
+function load_Tickers() {
+    tickerlist = [{name:"Enbridge",
+                symbol:"ENB.TO"},
+                {name:"Canadian Tire",
+                symbol:"CTC-A.TO"},
+                 {name:"Bank of Scotia",
+                 symbol:"BNS.TO"},
+                 {name:"Fortis",
+                symbol:"FTS.TO"}]
+    //tickerlist = ["ENB.TO","CTC-A.TO","FTS.TO","BNS.TO"]
+    tickerSelector = d3.select("#selTicker");
+    tickerlist.forEach(d => {
+        console.log(d)
+        tickerSelector.append("option").text(d.name).property("value",d.symbol)
+    })
+
+}
+
+function get_stock_data() {
+
+}
+
+tickerSelector.on("change",get_stock_data)

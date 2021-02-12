@@ -6,16 +6,11 @@ var selector = d3.select("#selDateset");
 var headline = d3.select("#news-headline")
 var news = d3.select("#news-text")
 var bar_area = d3.select("#bar-graph")
+var category = d3.select("#selTable")
 
 
-
+// Populates drop down menu with dates from global news page
 function init() {
-
-    //Html binding
-    var selector = d3.select("#selDateset");
-    var newsparagraph = d3.select("#blurb");
-
-    // Populate the dropdown
     d3.json("/dates").then((data) => {
         var Dates = data.Story[0].Date
         var News = data.Story[0].News
@@ -24,30 +19,20 @@ function init() {
                 .text(date)
                 .property("value", date);
         })
-
-        // News.forEach((news) => {
-        //     newsparagraph.append("p")
-        //         .text(news)
-        // })
     });
-
 };
 
-function optionChanged(newDate) {
-    // Fetch new data each time a new sample is selected
-    console.log("OPTION k");
-    // buildMetadata(newDate);
+
+function optionChanged() {
+    console.log('option changed')
+
 }
 
 
-
-
-
-
 // Changes new area based on user selection
-function plot_data() {
-
+function display_news() {
     var user_date = selector.node().value
+
     headline.html("")
     headline.append("h3")
         .text(`Headline for ${user_date}`)
@@ -65,45 +50,13 @@ function plot_data() {
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
 
-    buildplot(start_date, end_date)
-
-
-    // console.log(`usr ${dtdt}`)
-    // console.log(`st ${start_date}`)
-    // console.log(`nd ${end_date}`)
-
-    // console.log(dtdt)
-
-    // d3.json(`/filterDate/${user_date}`).then((data) => {
-
-    // });
+    buildplot(user_date, start_date, end_date)
+        // d3.json(`/filterDate/${user_date}`).then((data) => {
+        // });
 
 };
 
 
-// listenener for date change
-selector.on("change", plot_data)
-
-var category = d3.select("#selTable")
-
-// Listener for category change
-category.on("change", function() {
-    var user_category = category.property("value")
-    var url = `"/${user_category}"`
-    if (user_category === "aviation") {
-        buildplot_aviation(),
-            d3.json(url).then((data) => {
-                var dates = data.aviation_stocks[0].Date.map(d => new Date(d))
-                console.log(dates)
-            })
-    } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
-})
-
-// Initialize the dashboard
-init();
-
-// plot initial graph
-buildplot_aviation();
 
 // function dates(user_category) {
 //     bar_area.html()
@@ -111,13 +64,6 @@ buildplot_aviation();
 //     var user_date = selector.node().value
 //     user_date = new Date(user_date)
 //     console.log(user_date)
-
-//     d3.json(url).then((data) => {
-
-
-
-//     })
-// }
 
 // function which hopefuly returns array of dates 
 function arrayToDates(arr) {
@@ -130,63 +76,35 @@ function arrayToDates(arr) {
     return date_list
 }
 
-// function inDateRange(arr, start_date, end_date){
-//     return(arr > start_date && arr < end_date)
-// }
 
-function buildplot(start_date, end_date) {
+function buildplot(user_date, start_date, end_date) {
     // console.log(start_date)
-    d3.json("/entertainment").then((ent_data) => {
+    d3.json("/entertainment").then((data) => {
 
-        ent_data.forEach(function(data) {
-            data.entertainment_stocks[0].Adj_Close = +data.entertainment_stocks[0].Adj_Close
-            data.entertainment_stocks[0].Date = arrayToDates(data.entertainment_stocks[0].Date)
-            console.log('comlete')
 
-        })
+        var sett = data.entertainment_stocks[0]
+        var dates = arrayToDates(sett.Date)
+        var date_range = dates.filter(dt => (dt >= start_date) && (dt <= end_date))
 
-        //    var date_range = data.dategc.filter(dt => (dt > start_date) && (dt < end_date))
-        //         // indez of first item in date range 
-        //         var start_ind = data.dategc.indexOf(date_range[0])
-        //         var start_price = data.closegc[start_ind]
-        //         console.log(start_price)
+        var start_index = dates.indexOf(date_range[0])
+        var end_index = dates.indexOf(date_range[date_range.length - 1])
 
-        // var sett = data.entertainment_stocks[0].Date
-        // var dates = arrayToDates(sett)
-        // var date_range = dates.filter(dt => (dt > start_date) && (dt < end_date))
-        // console.log(date_range)
 
-        // var dtlist = []
+        var start_price = sett.Adj_Close[start_index]
+        var end_price = sett.Adj_Close[end_index]
 
-        // sett.forEach(function(row){
-        //     var dt = new Date(row.Date)
-        //     console.log(dt)
-        //     dtlist.push(dt) 
+        var prices = []
 
-        // })
-        //console.log(sett)
 
-        // for (var i = 0; i < sett.length; i++) {
-        //     var dt = new Date(sett.Date)
-        //     console.log(dt)
-        //     dtlist.push(dt)
-        //     return dtlist
-        // }
-        // var dateset = sett.Date.filter(row => row.Date > start_date && row.Date < end_date)
-        // var dateset = tod(sett.Date)
-        //console.log(dtlist)
+        for (var x = start_index; x < end_index; x++) {
+            prices.push(sett.Adj_Close[x])
+        }
+        console.log(prices)
+
+
     })
 
-    //var st = start_date.toString() 
 
-    //console.log(`start ${start_date} st: ${st}`)
-
-    // d3.json("/entertainment").then((data) => {
-    //     var set1 = data.entertainment_stocks
-    //     // var subject_metadata = all_subject_metadata.filter(row => row.id == user_subject)
-    //     var arr1 = set1.filter(row => row.Date > end_date)
-    //     console.log(arr1)
-    // })
 }
 
 function buildplot_entertainment() {
@@ -439,3 +357,23 @@ function buildplot_telecommunication() {
 
 
 // Load initial functions
+init();
+
+// plot initial graph
+buildplot_aviation();
+
+// listenener for date change
+selector.on("change", display_news)
+
+// Listener for category change
+category.on("change", function() {
+    var user_category = category.property("value")
+    var url = `"/${user_category}"`
+    if (user_category === "aviation") {
+        buildplot_aviation(),
+            d3.json(url).then((data) => {
+                var dates = data.aviation_stocks[0].Date.map(d => new Date(d))
+                console.log(dates)
+            })
+    } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
+})

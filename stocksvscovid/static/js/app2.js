@@ -220,6 +220,7 @@ function init() {
         var Dates = data.Story[0].Date
         var News = data.Story[0].News
         Dates.forEach((date) => {
+            var date = date.slice(0, -13)
             selector.append("option")
                 .text(date)
                 .property("value", date);

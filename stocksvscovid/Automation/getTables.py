@@ -4,14 +4,14 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
-# Other dependencies
+# Import more dependencies
 import pandas as pd
 from datetime import datetime as dt
 import pandas_datareader as pdr
 from bs4 import BeautifulSoup as bs
 import requests
 
-# Find out what day it is
+# Find out what day it is and declaring today variable
 today = dt.utcnow().date()
 today = dt.utcnow().date().strftime('%Y-%m-%d')
 
@@ -73,8 +73,9 @@ Update_Database(telecommunication_df, 'telecommunication')
 Update_Database(technology_df, 'technology')
 Update_Database(aviation_df, 'aviation')
 
-
+# import from scrapenews.py
 from scrapeNews import scrape_News
 
+# run function
 Update_Database(scrape_News(), 'dates_table')
 

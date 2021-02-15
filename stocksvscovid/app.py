@@ -28,14 +28,15 @@ Base.prepare(engine, reflect=True)
 app = Flask(__name__)
 
 
-# Frontend Route
+# Frontend Route and Homepage
 # ------------------------------------------------------------------------------
 @app.route("/")
 def home():
     return render_template("index.html")
 
 
-# Backend Routes
+# Backend Routes:
+# Entertainment page
 # ------------------------------------------------------------------------------
 @app.route('/entertainment')
 def entertainment():
@@ -70,6 +71,7 @@ def entertainment():
     session.close()
     return jsonify(entertainment_stocks)
 
+# Telecommunication page
 # ------------------------------------------------------------------------------
 @app.route('/telecommunication')
 def telecommunication():
@@ -97,7 +99,7 @@ def telecommunication():
     session.close()
     return jsonify(telecommunication_stocks)
 
-
+# Dates page
 # --------------------------------------------------------------------------------
 @app.route('/dates')
 def dates():
@@ -115,6 +117,7 @@ def dates():
     session.close()
     return jsonify(date_dict)
 
+# Technology Page
 # ------------------------------------------------------------------------------
 @app.route('/technology')
 def technology():
@@ -142,7 +145,7 @@ def technology():
     session.close()
     return jsonify(tech_stocks)
 
-
+# Aviation page
 # ------------------------------------------------------------------------------
 @app.route('/aviation')
 def aviation():

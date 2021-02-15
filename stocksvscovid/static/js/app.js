@@ -1,6 +1,7 @@
-// Create a Line plot with Ploty using data from app.py
+// Declaring variable
 var plot_area = d3.select("#plot")
 
+// Create a Line plot with Ploty using data from app.py for entertainment category
 function buildplot_entertainment() {
     plot_area.html("")
     d3.json("/entertainment").then(function(data) {
@@ -62,7 +63,7 @@ function buildplot_entertainment() {
 };
 
 
-// Create a Line plot with Ploty using data from app.py
+// Create a Line plot with Ploty using data from app.py for technology category
 function buildplot_technology() {
     plot_area.html("")
     d3.json("/technology").then(function(data1) {
@@ -110,7 +111,7 @@ function buildplot_technology() {
 };
 
 
-// Create a Line plot with Ploty using data from app.py
+// Create a Line plot with Ploty using data from app.py for aviation category
 function buildplot_aviation() {
     plot_area.html("")
     d3.json("/aviation").then(function(data2) {
@@ -159,7 +160,7 @@ function buildplot_aviation() {
 
 buildplot_aviation();
 
-// Create a Line plot with Ploty using data from app.py
+// Create a Line plot with Ploty using data from app.py for telecommunication category
 function buildplot_telecommunication() {
     plot_area.html("")
     d3.json("/telecommunication").then(function(data3) {
@@ -206,8 +207,7 @@ function buildplot_telecommunication() {
     });
 };
 
-
-
+// Initialize function
 function init() {
 
     //Html binding
@@ -229,6 +229,7 @@ function init() {
 
 };
 
+// Function for option changed
 function optionChanged(newDate) {
     // Fetch new data each time a new sample is selected
     console.log("OPTION CHANGED");

@@ -1,4 +1,4 @@
--- Create a new table
+-- Create a new table for aviation
 CREATE TABLE aviation (
     id SERIAL PRIMARY KEY,
     Date VARCHAR(60) NOT NULL,
@@ -9,5 +9,4 @@ CREATE TABLE aviation (
     Adj_Close FLOAT(24),
     Volume INT(64),
     Ticker VARCHAR(24)
-
 );

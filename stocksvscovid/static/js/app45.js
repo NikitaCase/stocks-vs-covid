@@ -70,6 +70,17 @@ function get_traces(ticker, date, adj_Close) {
     return trace;
 }
 
+// Calculates average close prices
+function avg(arr) {
+    var sum = 0
+    for (var n = 0; n < arr.length; n++) {
+        var price = arr[n]
+        sum += price
+    }
+    var average_price = sum / arr.length
+    return average_price
+}
+
 
 // builds entertainment plot 
 function buildplot_entertainment() {
@@ -97,6 +108,7 @@ function buildplot_entertainment() {
         for (var x = start_index; x < end_index; x++) {
             prices_gc.push(gc.Adj_Close[x])
         }
+        var avg_gc_20 = avg(prices_gc)
 
         // recp variables
         var recp = data.entertainment_stocks[1]
@@ -107,6 +119,7 @@ function buildplot_entertainment() {
         for (var x = start_index; x < end_index; x++) {
             prices_recp.push(recp.Adj_Close[x])
         }
+        var avg_recp_20 = avg(prices_recp)
 
 
         // cgx variables
@@ -114,12 +127,11 @@ function buildplot_entertainment() {
         var dates_cgx = arrayToDates(cgx.Date)
         var date_range_cgx = dates_cgx.filter(dt => (dt >= start_date) && (dt <= end_date))
 
-        console.log(date_range_cgx)
-
         var prices_cgx = []
         for (var x = start_index; x < end_index; x++) {
             prices_cgx.push(cgx.Adj_Close[x])
         }
+        var avg_cgx_20 = avg(prices_cgx)
 
 
         var trace_1 = {
@@ -166,28 +178,65 @@ function buildplot_entertainment() {
         };
         Plotly.newPlot("plot", tracedata, layout)
 
-        // Plot bar Graphs
 
+        // Plot bar Graphs
         var date_range_19 = dates_gc.filter(dt => (dt >= start19) && (dt <= end19))
+        var start_index_19 = dates_gc.indexOf(date_range_19[0])
+        var end_index_19 = dates_gc.indexOf(date_range_19[date_range_19.length - 1])
+
+        var prices_gc_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_gc_19.push(gc.Adj_Close[x])
+        }
+        var avg_gc_19 = avg(prices_gc_19)
+
+        // recp variables
+        var prices_recp_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_recp_19.push(recp.Adj_Close[x])
+        }
+        var avg_recp_19 = avg(prices_recp_19)
+
+        // cgx variables
+        var prices_cgx_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_cgx_19.push(cgx.Adj_Close[x])
+        }
+        var avg_cgx_19 = avg(prices_cgx_19)
+
 
 
         var trace1 = {
             x: ['GC', 'RECP', 'CGX'],
-            y: [20, 14, 23],
+            y: [avg_gc_19, avg_recp_19, avg_cgx_19],
             name: '2019',
-            type: 'bar'
+            type: 'bar',
+            marker: {
+                color: '00aadd'
+            }
         };
 
         var trace2 = {
             x: ['GC', 'RECP', 'CGX'],
-            y: [12, 18, 29],
+            y: [avg_gc_20, avg_recp_20, avg_cgx_20],
             name: '2020',
-            type: 'bar'
+            type: 'bar',
+            marker: {
+                color: 'a786fe'
+            }
         };
 
         var traces = [trace1, trace2];
 
-        var layout2 = { barmode: 'group' };
+        var layout2 = {
+            barmode: 'group',
+            title: `Average Stock Prices 2019 vs 2020`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Average Stock Prices (in CAD $)'
+            }
+        };
 
         Plotly.newPlot('bar-graph', traces, layout2);
     });
@@ -200,6 +249,9 @@ function buildplot_technology() {
     var dtdt = new Date(user_date)
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+
+    var end19 = new Date(end_date - (365 * 86400000))
+    var start19 = new Date(start_date - (365 * 86400000))
 
     plot_area.html("")
     var user_date = selector.node().value
@@ -219,6 +271,7 @@ function buildplot_technology() {
         for (var x = start_index; x < end_index; x++) {
             prices_gc.push(gc.Adj_Close[x])
         }
+        var avg_gc_20 = avg(prices_gc)
 
         // recp variables
         var recp = data.technology[1]
@@ -229,6 +282,7 @@ function buildplot_technology() {
         for (var x = start_index; x < end_index; x++) {
             prices_recp.push(recp.Adj_Close[x])
         }
+        var avg_recp_20 = avg(prices_recp)
 
         var trace_1 = {
             type: "scatter",
@@ -257,6 +311,59 @@ function buildplot_technology() {
         var layout = get_layout("Technology Stock")
 
         Plotly.newPlot("plot", tracedata, layout)
+
+
+        // Plot bar Graphs
+        var date_range_19 = dates_gc.filter(dt => (dt >= start19) && (dt <= end19))
+        var start_index_19 = dates_gc.indexOf(date_range_19[0])
+        var end_index_19 = dates_gc.indexOf(date_range_19[date_range_19.length - 1])
+
+        var prices_gc_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_gc_19.push(gc.Adj_Close[x])
+        }
+        var avg_gc_19 = avg(prices_gc_19)
+
+        // recp variables
+        var prices_recp_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_recp_19.push(recp.Adj_Close[x])
+        }
+        var avg_recp_19 = avg(prices_recp_19)
+
+        var trace1 = {
+            x: ['HIVE.V', 'SHOP'],
+            y: [avg_gc_19, avg_recp_19],
+            name: '2019',
+            type: 'bar',
+            marker: {
+                color: '00aadd'
+            }
+        };
+
+        var trace2 = {
+            x: ['HIVE.V', 'SHOP'],
+            y: [avg_gc_20, avg_recp_20],
+            name: '2020',
+            type: 'bar',
+            marker: {
+                color: 'a786fe'
+            }
+        };
+
+        var traces = [trace1, trace2];
+
+        var layout2 = {
+            barmode: 'group',
+            title: `Average Stock Prices 2019 vs 2020`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Average Stock Prices (in CAD $)'
+            }
+        };
+
+        Plotly.newPlot('bar-graph', traces, layout2);
     });
 };
 
@@ -268,6 +375,8 @@ function buildplot_telecommunication() {
     var dtdt = new Date(user_date)
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+    var end19 = new Date(end_date - (365 * 86400000))
+    var start19 = new Date(start_date - (365 * 86400000))
 
     plot_area.html("")
     d3.json("/telecommunication").then(function(data) {
@@ -284,6 +393,7 @@ function buildplot_telecommunication() {
         for (var x = start_index; x < end_index; x++) {
             prices_gc.push(gc.Adj_Close[x])
         }
+        var avg_gc_20 = avg(prices_gc)
 
         // recp variables
         var recp = data.telecommunication_stocks[1]
@@ -294,6 +404,7 @@ function buildplot_telecommunication() {
         for (var x = start_index; x < end_index; x++) {
             prices_recp.push(recp.Adj_Close[x])
         }
+        var avg_recp_20 = avg(prices_recp)
 
         var trace_1 = {
             type: "scatter",
@@ -328,17 +439,72 @@ function buildplot_telecommunication() {
             }
         };
         Plotly.newPlot("plot", tracedata, layout)
+
+
+        // Plot bar Graphs
+        var date_range_19 = dates_gc.filter(dt => (dt >= start19) && (dt <= end19))
+        var start_index_19 = dates_gc.indexOf(date_range_19[0])
+        var end_index_19 = dates_gc.indexOf(date_range_19[date_range_19.length - 1])
+
+        var prices_gc_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_gc_19.push(gc.Adj_Close[x])
+        }
+        var avg_gc_19 = avg(prices_gc_19)
+
+        // recp variables
+        var prices_recp_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_recp_19.push(recp.Adj_Close[x])
+        }
+        var avg_recp_19 = avg(prices_recp_19)
+
+
+        var trace1 = {
+            x: ['RCI-B', 'BCE'],
+            y: [avg_gc_19, avg_recp_19],
+            name: '2019',
+            type: 'bar',
+            marker: {
+                color: '00aadd'
+            }
+        };
+
+        var trace2 = {
+            x: ['RCI-B', 'BCE'],
+            y: [avg_gc_20, avg_recp_20],
+            name: '2020',
+            type: 'bar',
+            marker: {
+                color: 'a786fe'
+            }
+        };
+
+        var traces = [trace1, trace2];
+
+        var layout2 = {
+            barmode: 'group',
+            title: `Average Stock Prices 2019 vs 2020`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Average Stock Prices (in CAD $)'
+            }
+        };
+
+        Plotly.newPlot('bar-graph', traces, layout2);
     });
 };
 
 
 // Create a Line plot with Ploty using data from app.py
 function buildplot_aviation() {
-
     var user_date = selector.node().value
     var dtdt = new Date(user_date)
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
+    var end19 = new Date(end_date - (365 * 86400000))
+    var start19 = new Date(start_date - (365 * 86400000))
 
     plot_area.html("")
     d3.json("/aviation").then(function(data) {
@@ -355,6 +521,7 @@ function buildplot_aviation() {
         for (var x = start_index; x < end_index; x++) {
             prices_gc.push(gc.Adj_Close[x])
         }
+        var avg_gc_20 = avg(prices_gc)
 
         // recp variables
         var recp = data.aviation_stocks[1]
@@ -365,6 +532,7 @@ function buildplot_aviation() {
         for (var x = start_index; x < end_index; x++) {
             prices_recp.push(recp.Adj_Close[x])
         }
+        var avg_recp_20 = avg(prices_recp)
 
         var trace_1 = {
             type: "scatter",
@@ -400,6 +568,59 @@ function buildplot_aviation() {
             }
         };
         Plotly.newPlot("plot", tracedata, layout)
+
+
+        // Plot bar Graphs
+        var date_range_19 = dates_gc.filter(dt => (dt >= start19) && (dt <= end19))
+        var start_index_19 = dates_gc.indexOf(date_range_19[0])
+        var end_index_19 = dates_gc.indexOf(date_range_19[date_range_19.length - 1])
+
+        var prices_gc_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_gc_19.push(gc.Adj_Close[x])
+        }
+        var avg_gc_19 = avg(prices_gc_19)
+
+        // recp variables
+        var prices_recp_19 = []
+        for (var x = start_index_19; x < end_index_19; x++) {
+            prices_recp_19.push(recp.Adj_Close[x])
+        }
+        var avg_recp_19 = avg(prices_recp_19)
+
+        var trace1 = {
+            x: ['BBD-B', 'AC'],
+            y: [avg_gc_19, avg_recp_19],
+            name: '2019',
+            type: 'bar',
+            marker: {
+                color: '00aadd'
+            }
+        };
+
+        var trace2 = {
+            x: ['BBD-B', 'AC'],
+            y: [avg_gc_20, avg_recp_20],
+            name: '2020',
+            type: 'bar',
+            marker: {
+                color: 'a786fe'
+            }
+        };
+
+        var traces = [trace1, trace2];
+
+        var layout2 = {
+            barmode: 'group',
+            title: `Average Stock Prices 2019 vs 2020`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Average Stock Prices (in CAD $)'
+            }
+        };
+
+        Plotly.newPlot('bar-graph', traces, layout2);
     });
 };
 

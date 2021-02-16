@@ -308,7 +308,14 @@ function buildplot_technology() {
 
         var tracedata = [trace_1, trace_2];
 
-        var layout = get_layout("Technology Stock")
+        var layout = {
+            title: `Telecommunication Stock`,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Stock Price (in CAD $)'
+            }
+        };
 
         Plotly.newPlot("plot", tracedata, layout)
 

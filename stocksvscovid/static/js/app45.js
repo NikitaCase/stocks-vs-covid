@@ -78,6 +78,9 @@ function buildplot_entertainment() {
     var end_date = new Date(dtdt - (-45 * 24 * 60 * 60 * 1000))
     var start_date = new Date(dtdt - (45 * 24 * 60 * 60 * 1000))
 
+    var end19 = new Date(end_date - (365 * 86400000))
+    var start19 = new Date(start_date - (365 * 86400000))
+
 
     plot_area.html("")
     d3.json("/entertainment").then(function(data) {
@@ -162,6 +165,31 @@ function buildplot_entertainment() {
             }
         };
         Plotly.newPlot("plot", tracedata, layout)
+
+        // Plot bar Graphs
+
+        var date_range_19 = dates_gc.filter(dt => (dt >= start19) && (dt <= end19))
+
+
+        var trace1 = {
+            x: ['GC', 'RECP', 'CGX'],
+            y: [20, 14, 23],
+            name: '2019',
+            type: 'bar'
+        };
+
+        var trace2 = {
+            x: ['GC', 'RECP', 'CGX'],
+            y: [12, 18, 29],
+            name: '2020',
+            type: 'bar'
+        };
+
+        var traces = [trace1, trace2];
+
+        var layout2 = { barmode: 'group' };
+
+        Plotly.newPlot('bar-graph', traces, layout2);
     });
 };
 

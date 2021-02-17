@@ -91,22 +91,22 @@ function load_News(){
     });
 }
 
-//========= PLOT FUNCTIONS
-function buildplot_Categories() {
+// //========= PLOT FUNCTIONS
+// function buildplot_Categories() {
     
-    // var dtdt = get_DateDictionary()
-    // console.log(dtdt)
+//     // var dtdt = get_DateDictionary()
+//     // console.log(dtdt)
 
-    //console.log(dtdt.end19)
+//     //console.log(dtdt.end19)
+//     plot_area.html("")
+//     get_GC()
+// }
+
+//========= PLOT FUNCTION
+function buildplot_Categories() {
+
     plot_area.html("")
-    get_GC()
-}
-
-//========= GC Variables
-function get_GC() {
-    // Get Dates dictionary
-    var dateDict = get_DateDictionary()
-
+    
     // Get Selected category
     var user_category = category.property("value")
 
@@ -130,66 +130,14 @@ function get_GC() {
         else
             { gc_route = data.telecommunication_stocks}
 
-        gc = gc_route[0]
+        gc = get_DateRange(gc_route[0])
         console.log(gc)
-        var dates_gc = arrayToDates(gc.Date)
-        var date_range_gc = dates_gc.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
+        var trace_1 = get_Trace(gc,"00d775")
+        console.log(trace_1)
 
-        var start_index = dates_gc.indexOf(date_range_gc[0])
-        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+        var recp = get_DateRange(gc_route[1])
 
-
-// PUT GC AND RECP IN FUNCTION AND CALL THEM
-//-> LOAD FIRST INDEX
-        // If its first
-        // if(start_index === -1) {
-        //     start_index=0;
-        //     end_index=gc.Adj_Close.length-1; 
-        //     var prices_gc = [...gc.Adj_Close];
-        //     var avg_gc_20 = gc.Adj_Close.reduce((a,b)=>a+b,0);
-        //     avg_gc_20 /= gc.Adj_Close.length
-        //     console.log(avg_gc_20) 
-        // }
-        var prices_gc = []
-        for (let x = start_index; x < end_index; x++) {
-            prices_gc.push(gc.Adj_Close[x])
-        }
-        console.log(prices_gc)
-        var avg_gc_20 = avg(prices_gc)
-
-        // recp variables
-        var recp = gc_route[1]
-        var dates_recp = arrayToDates(recp.Date)
-        var date_range_recp = dates_recp.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
-
-        
-        var prices_recp = []
-        for (let x = start_index; x < end_index; x++) {
-            prices_recp.push(recp.Adj_Close[x])
-        }
-        var avg_recp_20 = avg(prices_recp)
-
-        var trace_1 = {
-            type: "scatter",
-            mode: "line",
-            name: gc.Ticker,
-            x: date_range_gc,
-            y: prices_gc,
-            line: {
-                color: '00d775'
-            }
-        };
-
-        var trace_2 = {
-            type: "scatter",
-            mode: "line",
-            name: recp.Ticker,
-            x: date_range_recp,
-            y: prices_recp,
-            line: {
-                color: "0077df"
-            }
-        };
+        var trace_2 = get_Trace(recp,"0077df")
 
         var tracedata = [trace_1, trace_2];
 
@@ -206,6 +154,46 @@ function get_GC() {
     })
 }
 
+
+//======== Get Prices
+function get_Prices(gc,start_index,end_index) {
+
+        var priceList = []
+        for (let x = start_index; x < end_index; x++) {
+            priceList.push(gc.Adj_Close[x])
+            console.log("ADJ",gc.Adj_Close[x])
+        }
+        var pricesDict = {
+            "priceList" : priceList,
+            "priceAvg" : avg(priceList)
+        }
+        return pricesDict
+}
+// Calculates average close prices
+function avg(arr) {
+    var sum = 0
+    for (var n = 0; n < arr.length; n++) {
+        var price = arr[n]
+        sum += price
+    }
+    var average_price = sum / arr.length
+    return average_price
+}
+//===========================//
+//========== PLOT DETAILS functions
+function get_Trace(gc,colorCode) {
+            var trace= {
+            type: "scatter",
+            mode: "line",
+            name: gc.ticker,
+            x: gc.date_range,
+            y: gc.priceList,
+            line: {
+                color: colorCode
+            }
+        };
+    return trace
+}
 
 //========== Dates FUNCTIONS
 // Date Dictionary
@@ -227,6 +215,31 @@ function get_DateDictionary (){
         "start19" : start19
     }
     return datesDict;
+}
+function get_DateRange(gc) {
+
+        // Get Dates dictionary
+    var dateDict = get_DateDictionary()
+    var ticker = gc.Ticker
+    var dates_gc = arrayToDates(gc.Date)
+    var date_range_gc = dates_gc.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
+
+    var start_index = dates_gc.indexOf(date_range_gc[0])
+    var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+    
+
+    var pricesDict = get_Prices(gc,start_index,end_index)
+
+    dateRangeDict = {
+        "ticker": ticker,
+        "dates": dates_gc,
+        "date_range": date_range_gc,
+        "start_index": start_index,
+        "end_index": end_index,
+        "priceAvg": pricesDict.pricesAvg,
+        "priceList":pricesDict.priceList
+    }
+    return dateRangeDict
 }
 
 

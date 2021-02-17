@@ -125,16 +125,16 @@ def technology():
     stocks = Base.classes.technology
     session = Session(engine)
 
-    hive = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
-        stocks.Ticker == 'HIVE.V').order_by(stocks.Date).all()
+    kxs = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
+        stocks.Ticker == 'KXS.TO').order_by(stocks.Date).all()
     shop = session.query(stocks.Ticker, stocks.Adj_Close, stocks.Date).filter(
         stocks.Ticker == 'SHOP.TO').order_by(stocks.Date).all()
 
     tech_stocks = {"technology": [
         {
-            'Ticker': 'HIVE.V',
-            'Date': [row[2] for row in hive],
-            'Adj_Close': [row[1] for row in hive]
+            'Ticker': 'KXS.TO',
+            'Date': [row[2] for row in kxs],
+            'Adj_Close': [row[1] for row in kxs]
         },
         {
             'Ticker': 'SHOP.TO',

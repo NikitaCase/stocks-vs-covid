@@ -130,32 +130,24 @@ function buildplot_Categories() {
         else
             { gc_route = data.telecommunication_stocks}
 
-        gc = get_DateRange(gc_route[0])
-        console.log(gc)
+        var gc = get_DateRange(gc_route[0])
         var trace_1 = get_Trace(gc,"00d775")
-        console.log(trace_1)
-
+        
         var recp = get_DateRange(gc_route[1])
-
         var trace_2 = get_Trace(recp,"0077df")
 
         var tracedata = [trace_1, trace_2];
 
-        var layout = {
-            title: `Telecommunication Stock`,
-            paper_bgcolor: '002e50',
-            plot_bgcolor: '002e50',
-            yaxis: {
-                title: 'Stock Price (in CAD $)'
-            }
-        };
+        var layout = get_Layout(user_category)
+        
         Plotly.newPlot("plot", tracedata, layout)
 
     })
 }
 
 
-//======== Get Prices
+//========================//
+//======== Price Related Functions
 function get_Prices(gc,start_index,end_index) {
 
         var priceList = []
@@ -179,8 +171,14 @@ function avg(arr) {
     var average_price = sum / arr.length
     return average_price
 }
+
 //===========================//
-//========== PLOT DETAILS functions
+//========== PLOT Related Functions
+// GET TITLE
+function get_Title(Title) {
+    return Title.charAt(0).toUpperCase() + Title.slice(1) +" Stock";
+}
+// GET TRACES
 function get_Trace(gc,colorCode) {
             var trace= {
             type: "scatter",
@@ -194,13 +192,25 @@ function get_Trace(gc,colorCode) {
         };
     return trace
 }
+// GET LAYOUT
+function get_Layout(Title) {
+        var layout = {
+            title: get_Title(Title),
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Stock Price (in CAD $)'
+            }
+        }
+    return layout
+}
 
-//========== Dates FUNCTIONS
+//=============================//
+//========== Date Related FUNCTIONS
 // Date Dictionary
 function get_DateDictionary (){
 
     var user_date = get_Dates(date_selector.node().value,0)
-    console.log("GETDATEDICT",user_date)
     var start_date = get_Dates(user_date,1)
     var end_date = get_Dates(user_date,-1)
     var end19 = get_Dates(end_date,365)
@@ -216,9 +226,11 @@ function get_DateDictionary (){
     }
     return datesDict;
 }
+
+// GET DATE RANGE
 function get_DateRange(gc) {
 
-        // Get Dates dictionary
+    // Get Dates dictionary
     var dateDict = get_DateDictionary()
     var ticker = gc.Ticker
     var dates_gc = arrayToDates(gc.Date)
@@ -241,7 +253,6 @@ function get_DateRange(gc) {
     }
     return dateRangeDict
 }
-
 
 // Date conversions
 function get_Dates(dateV,time) {
@@ -275,7 +286,8 @@ function arrayToDates(arr) {
 // Initialize the page
 init();
 
-
+//====================//
+//======Event Listeners
 // Date selector listener
 date_selector.on("change",optionChanged());
 

@@ -22,8 +22,6 @@ function init() {
         //load_News(select.node().value);
 };
 
-
-
 // load Dates Function
 function load_Dates(){
     d3.json("/dates").then((data) => {
@@ -66,7 +64,16 @@ function load_News(){
 }
 // PLOT FUNCTIONS
 
-
+// function which hopefuly returns array of dates 
+function arrayToDates(arr) {
+    var date_list = []
+    for (var n = 0; n < arr.length; n++) {
+        var dt = new Date(arr[n])
+            // console.log(dt)
+        date_list.push(dt)
+    }
+    return date_list
+}
 
 
 

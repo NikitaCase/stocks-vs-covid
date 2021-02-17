@@ -94,9 +94,9 @@ function buildplot_aviation() {
     var user_date = get_Dates(date_selector.node().value,0)
     console.log("Buildplot_aviation",user_date)
     var start_date = get_Dates(user_date,1)
-    console.log("Start Date", start_date)
     var end_date = get_Dates(user_date,-1)
-    console.log("End Date", end_date)
+    var end19 = get_Dates(end_date,365)
+    var start19 = get_Dates(start_date,365)
 }
 
 
@@ -110,6 +110,10 @@ function get_Dates(dateV,time) {
     // Get end date
     else if (time === -1) 
         { return new Date(dateV - (-45 * 25 * 60 * 60 *1000) ) }
+
+    // Get 365 Conversion
+    else if (time === 365) 
+        { return new Date(dateV - (365 * 86400000) ) }
     console.log("getDate")
     console.log(new Date(dateV)) 
 }

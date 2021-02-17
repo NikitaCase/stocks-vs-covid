@@ -15,18 +15,12 @@ function init() {
     load_Dates();
     // load News
     load_News();
-    // load Categories
-
-        // Bring up first news
-        //load_News(date_selector.node().value);
-        //load_News(select.node().value);
 };
 
 // DATES CHANGED
 function optionChanged() {
     load_News();
     categoryChanged();
-
 }
 
 // CATEGORY CHANGED
@@ -35,19 +29,7 @@ function categoryChanged() {
     console.log(category.property("value"))
 
     buildplot_Categories()
-    // var user_category = category.property("value")
-    // var url = `"/${user_category}"`
-    // if (user_category === "aviation") {
-    //     buildplot_Categories(url),
-    //         d3.json(url).then((data) => {
-    //             var dates = data.aviation_stocks[0].Date.map(d => new Date(d))
-    //             console.log(dates)
-    //         })} 
-    // else if (user_category === "entertainment") {  buildplot_entertainment() } 
-    // else if (user_category === "technology") { buildplot_technology() } 
-    // else { buildplot_telecommunication() }
 }
-
 
 // LOAD Dates Function
 function load_Dates(){
@@ -62,11 +44,8 @@ function load_Dates(){
             date_selector.append("option")
                 .text(date.slice(0, -13))
                 .property("value",date);
-            console.log("ASD")
         });
     });
-
-    console.log("DATES: ",date_selector.node().value);
 }
 
 // LOAD News Function
@@ -82,25 +61,12 @@ function load_News(){
 
     news_section.html("")
     d3.json("/dates").then((data) => {
-        console.log(data)
         var dates = data.Story[0]['Date']
         var ind = dates.indexOf(user_date)
-        //m---> Setindex 0 to load at initialization
         var blurb = data.Story[0]['News'][ind]
         news_section.append("p").text(blurb)
     });
 }
-
-// //========= PLOT FUNCTIONS
-// function buildplot_Categories() {
-    
-//     // var dtdt = get_DateDictionary()
-//     // console.log(dtdt)
-
-//     //console.log(dtdt.end19)
-//     plot_area.html("")
-//     get_GC()
-// }
 
 //========= PLOT FUNCTION
 function buildplot_Categories() {
@@ -113,12 +79,7 @@ function buildplot_Categories() {
     // Set url
     var url = `/${user_category}`
 
-    var gc;
-    console.log("IN GC")
-    console.log(url)
-
     d3.json(url).then(function(data) {
-        console.log("IN D3")
 
         // Set array data binding
         if ( user_category === "aviation" ) 
@@ -153,7 +114,6 @@ function get_Prices(gc,start_index,end_index) {
         var priceList = []
         for (let x = start_index; x < end_index; x++) {
             priceList.push(gc.Adj_Close[x])
-            console.log("ADJ",gc.Adj_Close[x])
         }
         var pricesDict = {
             "priceList" : priceList,

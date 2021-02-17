@@ -22,13 +22,17 @@ function init() {
         //load_News(select.node().value);
 };
 
+// DATES CHANGED
 function optionChanged() {
     load_News();
     categoryChanged();
 
 }
 
+// CATEGORY CHANGED
 function categoryChanged() {
+    console.log("CategoryChanged")
+    console.log(date_selector.node().value)
     var user_category = category.property("value")
     var url = `"/${user_category}"`
     if (user_category === "aviation") {
@@ -36,12 +40,14 @@ function categoryChanged() {
             d3.json(url).then((data) => {
                 var dates = data.aviation_stocks[0].Date.map(d => new Date(d))
                 console.log(dates)
-            })
-    } else if (user_category === "entertainment") { buildplot_entertainment() } else if (user_category === "technology") { buildplot_technology() } else { buildplot_telecommunication() }
+            })} 
+    // else if (user_category === "entertainment") {  buildplot_entertainment() } 
+    // else if (user_category === "technology") { buildplot_technology() } 
+    // else { buildplot_telecommunication() }
 }
 
 
-// load Dates Function
+// LOAD Dates Function
 function load_Dates(){
     d3.json("/dates").then((data) => {
         // Pull data from news date table
@@ -60,7 +66,7 @@ function load_Dates(){
     console.log("DATES: ",date_selector.node().value);
 }
 
-// load News Function
+// LOAD News Function
 //missing--->> Should load the first news on the page initialization
 function load_News(){
     var user_date = date_selector.node().value;
@@ -81,7 +87,32 @@ function load_News(){
         news_section.append("p").text(blurb)
     });
 }
-// PLOT FUNCTIONS
+
+//========= PLOT FUNCTIONS
+function buildplot_aviation() {
+    
+    var user_date = get_Dates(date_selector.node().value,0)
+    console.log("Buildplot_aviation",user_date)
+    var start_date = get_Dates(user_date,1)
+    console.log("Start Date", start_date)
+    var end_date = get_Dates(user_date,-1)
+    console.log("End Date", end_date)
+}
+
+
+//========== Dates FUNCTIONS
+function get_Dates(dateV,time) {
+    // Convert default date
+    if (time === 0) { return new Date(dateV) }
+    // Get start date
+    else if (time === 1) 
+        { return new Date(dateV - (45 * 25 * 60 * 60 *1000) ) }
+    // Get end date
+    else if (time === -1) 
+        { return new Date(dateV - (-45 * 25 * 60 * 60 *1000) ) }
+    console.log("getDate")
+    console.log(new Date(dateV)) 
+}
 
 // function which hopefuly returns array of dates 
 function arrayToDates(arr) {

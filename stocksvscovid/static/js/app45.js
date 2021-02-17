@@ -16,7 +16,7 @@ function init() {
         var News = data.Story[0].News
         Dates.forEach((date) => {
             selector.append("option")
-                .text(date)
+                .text(date.slice(0, -13))
                 .property("value", date);
         })
     });
@@ -30,7 +30,7 @@ function optionChanged() {
 
     headline.html("")
     headline.append("h3")
-        .text(`Headline for ${user_date}`)
+        .text(`Headline for ${user_date.slice(0, -13)}`)
 
     news.html("")
     d3.json("/dates").then((data) => {

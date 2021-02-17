@@ -7,6 +7,7 @@ var headline = d3.select("#news-headline")
 var news = d3.select("#news-text")
 var bar_area = d3.select("#bar-graph")
 var category = d3.select("#selTable")
+var user_date = date_selector.node().value
 
 // Initialization function for index page
 function init() {
@@ -15,7 +16,6 @@ function init() {
     // load News
     load_News();
     // load Categories
-
 
         // Bring up first news
         //load_News(date_selector.node().value);
@@ -75,19 +75,9 @@ function arrayToDates(arr) {
     return date_list
 }
 
-
-
-
 // Initialize the page
 init();
 
-// Selectors on Change event listeners
-function optionChanged() {
-    console.log('Option Changed');
-    load_Dates();
-    load_News();
-    //call plot functions
-}
 
 // Date selector listener
 //date_selector.on("change",optionChanged());

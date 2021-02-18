@@ -11,9 +11,8 @@ var user_date = date_selector.node().value
 
 // Initialization function for index page
 function init() {
-    // load Dates
+    
     load_Dates();
-    // load News
     load_News();
 };
 
@@ -49,7 +48,6 @@ function load_Dates(){
 }
 
 // LOAD News Function
-//missing--->> Should load the first news on the page initialization
 function load_News(){
     var user_date = date_selector.node().value;
 
@@ -72,7 +70,7 @@ function load_News(){
 function buildplot_Categories() {
 
     plot_area.html("")
-    
+
     // Get Selected category
     var user_category = category.property("value")
 
@@ -82,28 +80,91 @@ function buildplot_Categories() {
     d3.json(url).then(function(data) {
 
         // Set array data binding
-        if ( user_category === "aviation" ) 
-            { gc_route = data.aviation_stocks }
+        if ( user_category === "aviation" ) { 
+            gc_route = data.aviation_stocks
+            var bar_x = ["BBD-B", "AC"]
+             }
         else if ( user_category === "technology" )
-            { gc_route = data.technology }
+            { gc_route = data.technology
+            var bar_x = ["HIVE.V","SHOP"] }
         else if ( user_category === "entertainment" )
-            { gc_route = data.entertainment_stocks}
-        else
-            { gc_route = data.telecommunication_stocks}
+            { 
+            gc_route = data.entertainment_stocks
+            var bar_x = ["GC", "RECP", "CGX"]
+            var cgx = get_DateRange(gc_route[2],"scatter")
+            var cgx_b = get_DateRange(gc_route[2],"bar")
+            var trace_3 = get_Trace(cgx,"7f6dcc")
+            }
+        else { 
+            gc_route = data.telecommunication_stocks
+            var bar_x = ["RCI-B", "BCE"]
+        }
 
-        var gc = get_DateRange(gc_route[0])
+        var gc = get_DateRange(gc_route[0],"scatter")
         var trace_1 = get_Trace(gc,"00d775")
         
-        var recp = get_DateRange(gc_route[1])
+        var recp = get_DateRange(gc_route[1],"scatter")
         var trace_2 = get_Trace(recp,"0077df")
 
-        var tracedata = [trace_1, trace_2];
+        if (user_category === "entertainment"){   
+            var tracedata = [trace_1,trace_2,trace_3]
+        }
+        else {
+            var tracedata = [trace_1, trace_2];
+        }
 
         var layout = get_Layout(user_category)
         
         Plotly.newPlot("plot", tracedata, layout)
 
+
+        // Build bar graphs  -  needs improvement
+        gc_19 = get_DateRange(gc_route[0],"bar")
+        recp_19 = get_DateRange(gc_route[1],"bar")
+ 
+        if (user_category==="entertainment"){
+            var avg_prices_20 = [gc.priceAvg,recp.priceAvg,cgx.priceAvg]
+            var avg_prices_19 = [gc_19.priceAvg,recp_19.priceAvg,cgx_b.priceAvg]
+            console.log(avg_prices_19)
+            console.log(avg_prices_20)
+        }
+        else {
+            var avg_prices_20 = [gc.priceAvg,recp.priceAvg]
+            var avg_prices_19 = [gc_19.priceAvg,recp_19.priceAvg]
+            console.log(avg_prices_19)
+            console.log(avg_prices_20)
+        }
+
+
+        var trace1 = get_BarTrace(
+            bar_x,
+            avg_prices_19,
+            "2019",
+            "a786fe")
+
+        var trace2 = get_BarTrace(
+            bar_x,
+            avg_prices_20,
+            "2020",
+            "00aadd")
+
+        var traces = [trace1, trace2];
+
+        var layout2 = {
+            barmode: 'group',
+            title: `Average Stock Prices 2019 vs 2020`,
+            autosize: false,
+            paper_bgcolor: '002e50',
+            plot_bgcolor: '002e50',
+            yaxis: {
+                title: 'Average Stock Prices (in CAD $)'
+            }
+        };
+
+        Plotly.newPlot('bar-graph', traces, layout2);
+
     })
+
 }
 
 
@@ -115,9 +176,10 @@ function get_Prices(gc,start_index,end_index) {
         for (let x = start_index; x < end_index; x++) {
             priceList.push(gc.Adj_Close[x])
         }
+        var priceAvg = avg(priceList)
         var pricesDict = {
             "priceList" : priceList,
-            "priceAvg" : avg(priceList)
+            "priceAvg" : priceAvg
         }
         return pricesDict
 }
@@ -164,6 +226,20 @@ function get_Layout(Title) {
         }
     return layout
 }
+// GET BAR_TRACE
+function get_BarTrace(bar_x,avg_prc,Name,colorCode) {
+    console.log(avg_prc)
+        var trace = {
+            x: bar_x,
+            y: avg_prc,
+            name: Name,
+            type: 'bar',
+            marker: {
+                color: colorCode
+            }
+        };
+    return trace
+}
 
 //=============================//
 //========== Date Related FUNCTIONS
@@ -188,27 +264,37 @@ function get_DateDictionary (){
 }
 
 // GET DATE RANGE
-function get_DateRange(gc) {
+function get_DateRange(gc,type) {
 
     // Get Dates dictionary
     var dateDict = get_DateDictionary()
     var ticker = gc.Ticker
     var dates_gc = arrayToDates(gc.Date)
-    var date_range_gc = dates_gc.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
 
-    var start_index = dates_gc.indexOf(date_range_gc[0])
-    var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
-    
-
-    var pricesDict = get_Prices(gc,start_index,end_index)
+//Needs improvement 
+    if (type === "scatter"){
+        var date_range_gc = dates_gc.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
+        var start_index = dates_gc.indexOf(date_range_gc[0])
+        var end_index = dates_gc.indexOf(date_range_gc[date_range_gc.length - 1])
+        var pricesDict = get_Prices(gc,start_index,end_index)
+        console.log(pricesDict)
+    }
+    else if (type === "bar") {
+        var date_range_19 = dates_gc.filter(dt => (dt >= dateDict.start19) && (dt <= dateDict.end19))
+        var start_index_19 = dates_gc.indexOf(date_range_19[0])
+        var end_index_19 = dates_gc.indexOf(date_range_19[date_range_19.length - 1])
+        var pricesDict = get_Prices(gc,start_index_19,end_index_19)
+    }
 
     dateRangeDict = {
         "ticker": ticker,
         "dates": dates_gc,
+        "end19": dateDict.end19,
+        "start19": dateDict.start19,
         "date_range": date_range_gc,
         "start_index": start_index,
         "end_index": end_index,
-        "priceAvg": pricesDict.pricesAvg,
+        "priceAvg": pricesDict.priceAvg,
         "priceList":pricesDict.priceList
     }
     return dateRangeDict
@@ -237,7 +323,11 @@ function get_Dates(dateV,time) {
 
 }
 
-// function which hopefuly returns array of dates 
+/**
+ * Convert strings to new Date format
+ * @param {arr} Aray, 
+ * @return {date_list} 
+ * */ 
 function arrayToDates(arr) {
     var date_list = []
     for (var n = 0; n < arr.length; n++) {

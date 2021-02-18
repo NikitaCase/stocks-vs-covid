@@ -22,6 +22,4 @@ validators==0.18.2
 WTForms==2.3.3
 yahoo-finance==1.4.0
 gunicorn==19.9.0
-pandas-datareader==0.10.0
-
 

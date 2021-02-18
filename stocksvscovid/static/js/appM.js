@@ -214,7 +214,12 @@ function get_DateRange(gc) {
     return dateRangeDict
 }
 
-// Date conversions
+/**
+ * Convert strings to new Date format
+ * @param {string} dateV, 
+ * @param {number} time {{date type -1,0,1,365}}
+ * @return {Date} 
+ * */ 
 function get_Dates(dateV,time) {
 
     // Convert default date

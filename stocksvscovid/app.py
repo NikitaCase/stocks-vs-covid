@@ -1,14 +1,13 @@
 # Import Libraries
 # ----------------------------------------------------------------------------
 
-import os
 from flask import Flask, render_template, jsonify
-import json
+#import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
-from scrapeStocks import Get_Stock
+#from scrapeStocks import Get_Stock
 
 # ------------------------------------------------------------------------------
 # Create an engine for the database

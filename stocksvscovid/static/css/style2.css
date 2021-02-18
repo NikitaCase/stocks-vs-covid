@@ -52,9 +52,14 @@ p {
 }
 
 .spacer {
-    height: 20px;
+    height: 30px;
 }
 
 #plot {
     background-color: #002e50;
 }
+
+#bar-graph{
+    min-height: 500px;
+  }
+

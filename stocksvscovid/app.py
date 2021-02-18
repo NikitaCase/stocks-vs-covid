@@ -2,7 +2,6 @@
 # ----------------------------------------------------------------------------
 
 from flask import Flask, render_template, jsonify
-#import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session

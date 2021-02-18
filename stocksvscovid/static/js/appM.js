@@ -1,5 +1,3 @@
-// Create a Line plot with Plotly
-
 // Select page sections
 var date_selector = d3.select("#selDateset")
 var plot_area = d3.select("#plot")
@@ -8,10 +6,10 @@ var news_section = d3.select("#news-text")
 var bar_area = d3.select("#bar-graph")
 var category = d3.select("#selCategory")
 var user_date = date_selector.node().value
+var header_text = d3.select("#plot-header")
 
 // Initialization function for index page
 function init() {
-    
     load_Dates();
     load_News();
 };
@@ -51,8 +49,7 @@ function load_Dates(){
 function load_News(){
     var user_date = date_selector.node().value;
 
-    console.log("NEWS DATE",user_date)
-
+    //console.log("NEWS DATE",user_date)
     headline.html("")
     headline.append("h3")
         .text(`Headline for ${user_date.slice(0, -13)}`)
@@ -83,10 +80,15 @@ function buildplot_Categories() {
         if ( user_category === "aviation" ) { 
             gc_route = data.aviation_stocks
             var bar_x = ["BBD-B", "AC"]
+            header_text.html('')
+            header_text.append('p').text('BBD-B: Bombardier Inc  |  AC: Air Canada')
              }
         else if ( user_category === "technology" )
             { gc_route = data.technology
-            var bar_x = ["HIVE.V","SHOP"] }
+            var bar_x = ["KXS","SHOP"] 
+            header_text.html('')
+            header_text.append('p').text('KXS: Kinaxis Inc  |  SHOP: Sopify Inc')
+        }
         else if ( user_category === "entertainment" )
             { 
             gc_route = data.entertainment_stocks
@@ -94,10 +96,14 @@ function buildplot_Categories() {
             var cgx = get_DateRange(gc_route[2],"scatter")
             var cgx_b = get_DateRange(gc_route[2],"bar")
             var trace_3 = get_Trace(cgx,"7f6dcc")
+            header_text.html('')
+            header_text.append('p').text('GC: Great Canadian Gaming Corp  |  RECP: Recipe Unlimited Corp  |  CGX: Cineplex Inc')
             }
         else { 
             gc_route = data.telecommunication_stocks
             var bar_x = ["RCI-B", "BCE"]
+            header_text.html('')
+            header_text.append('p').text('RCI-B: Rogers Communications Inc Class B  |  BCE: BCE Inc (formerly Bell Canada Enterprises)')
         }
 
         var gc = get_DateRange(gc_route[0],"scatter")
@@ -111,11 +117,11 @@ function buildplot_Categories() {
         }
         else {
             var tracedata = [trace_1, trace_2];
-        }
+        };
 
-        var layout = get_Layout(user_category)
-        
-        Plotly.newPlot("plot", tracedata, layout)
+        var layout = get_Layout(user_category);
+        var config = {responsive: true};
+        Plotly.newPlot("plot", tracedata, layout, config);
 
 
         // Build bar graphs  -  needs improvement
@@ -151,17 +157,29 @@ function buildplot_Categories() {
         var traces = [trace1, trace2];
 
         var layout2 = {
+            legend: {
+                font:{ color:'ffffff'}
+            },
             barmode: 'group',
-            title: `Average Stock Prices 2019 vs 2020`,
-            autosize: false,
+            title: {
+                text: `Average Stock Prices 2019 vs 2020`,
+                font:
+                {
+                    color:'ffffff'
+                }
+            },
+            //autosize: false,
             paper_bgcolor: '002e50',
             plot_bgcolor: '002e50',
             yaxis: {
-                title: 'Average Stock Prices (in CAD $)'
+                title: 'Average Stock Prices (in CAD $)', 
+                color: 'ffffff'
+            }, 
+            xaxis: {
+                color: 'ffffff'
             }
         };
-
-        Plotly.newPlot('bar-graph', traces, layout2);
+        Plotly.newPlot('bar-graph', traces, layout2, config);
 
     })
 
@@ -214,18 +232,34 @@ function get_Trace(gc,colorCode) {
         };
     return trace
 }
+
+
 // GET LAYOUT
 function get_Layout(Title) {
-        var layout = {
-            title: get_Title(Title),
-            paper_bgcolor: '002e50',
-            plot_bgcolor: '002e50',
-            yaxis: {
-                title: 'Stock Price (in CAD $)'
-            }
-        }
-    return layout
+    var layout = {
+    legend: {
+            font:{ color:'ffffff'}
+        },
+    title: {
+        text: get_Title(Title), 
+        font: {
+            color: '#ffffff'
+          }
+        },
+    paper_bgcolor: '002e50',
+    plot_bgcolor: '002e50',
+    yaxis: {
+        title: 'Stock Price (in CAD $)',
+        color: 'ffffff'
+    },
+    xaxis: {
+        color: '#ffffff'
+    }
 }
+    return layout
+};
+
+
 // GET BAR_TRACE
 function get_BarTrace(bar_x,avg_prc,Name,colorCode) {
     console.log(avg_prc)
@@ -239,7 +273,7 @@ function get_BarTrace(bar_x,avg_prc,Name,colorCode) {
             }
         };
     return trace
-}
+};
 
 //=============================//
 //========== Date Related FUNCTIONS
@@ -261,7 +295,7 @@ function get_DateDictionary (){
         "start19" : start19
     }
     return datesDict;
-}
+};
 
 // GET DATE RANGE
 function get_DateRange(gc,type) {
@@ -298,7 +332,7 @@ function get_DateRange(gc,type) {
         "priceList":pricesDict.priceList
     }
     return dateRangeDict
-}
+};
 
 /**
  * Convert strings to new Date format
@@ -336,7 +370,7 @@ function arrayToDates(arr) {
         date_list.push(dt)
     }
     return date_list
-}
+}; 
 
 // Initialize the page
 init();
@@ -347,5 +381,4 @@ init();
 date_selector.on("change",optionChanged());
 
 // Category change listener
-category.on("change", categoryChanged)
-// Ticker Listener
+category.on("change", categoryChanged); 

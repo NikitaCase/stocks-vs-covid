@@ -305,7 +305,7 @@ function get_DateRange(gc,type) {
     var ticker = gc.Ticker
     var dates_gc = arrayToDates(gc.Date)
 
-//Needs improvement 
+//Needs improvement scatter 
     if (type === "scatter"){
         var date_range_gc = dates_gc.filter(dt => (dt >= dateDict.start_date) && (dt <= dateDict.end_date))
         var start_index = dates_gc.indexOf(date_range_gc[0])
@@ -359,8 +359,8 @@ function get_Dates(dateV,time) {
 
 /**
  * Convert strings to new Date format
- * @param {arr} Aray, 
- * @return {date_list} 
+ * @param {string} array, 
+ * @return {date} list
  * */ 
 function arrayToDates(arr) {
     var date_list = []

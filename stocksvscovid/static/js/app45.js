@@ -6,7 +6,7 @@ var selector = d3.select("#selDateset");
 var headline = d3.select("#news-headline")
 var news = d3.select("#news-text")
 var bar_area = d3.select("#bar-graph")
-var category = d3.select("#selTable")
+var category = d3.select("#selCategory")
 var user_date = selector.node().value
 
 // Populates drop down menu with dates from global news page
@@ -41,7 +41,7 @@ function optionChanged() {
             .text(blurb)
     })
 
-    changeCategory()
+    categoryChanged()
 }
 
 // function which hopefuly returns array of dates 
@@ -656,9 +656,9 @@ buildplot_aviation();
 load_Tickers();
 
 // Listener for category change
-category.on("change", changeCategory)
+category.on("change", categoryChanged)
 
-function changeCategory() {
+function categoryChanged() {
     var user_category = category.property("value")
     var url = `"/${user_category}"`
     if (user_category === "aviation") {
